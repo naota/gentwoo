@@ -1,0 +1,2 @@
+module EmergesHelper
+end

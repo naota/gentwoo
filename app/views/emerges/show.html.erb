@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Id:</b>
+  <%= @emerge.id %>
+</p>
+
+<p>
+  <b>Buildtime:</b>
+  <%= @emerge.buildtime %>
+</p>
+
+<p>
+  <b>Duration:</b>
+  <%= @emerge.duration %>
+</p>
+
+<p>
+  <b>Package:</b>
+  <%= @emerge.package %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @emerge.user %>
+</p>
+
+
+<%= link_to 'Edit', edit_emerge_path(@emerge) %> |
+<%= link_to 'Back', emerges_path %>
