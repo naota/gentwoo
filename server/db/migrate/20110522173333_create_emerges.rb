@@ -1,7 +1,6 @@
 class CreateEmerges < ActiveRecord::Migration
   def self.up
     create_table :emerges do |t|
-      t.integer :id
       t.datetime :buildtime
       t.integer :duration
       t.references :package

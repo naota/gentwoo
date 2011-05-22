@@ -1,15 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  id: 1
-  buildtime: 2011-05-23 02:01:08
+  buildtime: 2011-05-23 02:33:33
   duration: 1
   package: 
   user: 
 
 two:
-  id: 1
-  buildtime: 2011-05-23 02:01:08
+  buildtime: 2011-05-23 02:33:33
   duration: 1
   package: 
   user: 
