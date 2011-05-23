@@ -108,4 +108,3 @@ if __name__ == "__main__":
         sys.exit(0)
     sendQuery(package, end, end-beg, logfile)
     if logfile and cleanLog: os.remove(logfile)
-        
