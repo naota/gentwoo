@@ -2,10 +2,27 @@
 <table>
 <tr><td>日時</td><td></td><td>所用時間</td></tr>
 <% @emerges.reverse_each do |emerge| %>
+<%- if emerge.duration == 0 -%>
+<tr style="background: #FFAAAA">
+<%- else -%>
 <tr>
+<%- end -%>
   <td><%= emerge.buildtime.to_s(:jp) %></td>
-  <td><%= link_to emerge.package.fullname, emerge.package.page %>をemergeしました。</td>
-  <td><%= viewDuration(emerge.duration) %></td>
+  </td>
+  <td>
+    <%- if emerge.duration == 0 -%>
+    <%= link_to emerge.package.fullname, emerge.package.page %>のemergeに失敗しました。
+    <%- else -%>
+    <%= link_to emerge.package.fullname, emerge.package.page %>をemergeしました。
+  </td>
+  <%- end -%>
+  <td>
+    <%- if emerge.duration == 0 -%>
+    失敗
+    <%- else -%>
+    <%= viewDuration(emerge.duration) %>
+    <%- end -%>
+  </td>
   <td><%= link_to "詳細", emerge.page %></td>
 </tr>
 <% end %>

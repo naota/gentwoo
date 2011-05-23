@@ -2,13 +2,25 @@
 
 <p>
   <%= @emerge.buildtime.to_s(:jp) %>に
+  <%- if @emerge.duration == 0 -%>
+  <%= link_to @emerge.package.fullname, @emerge.package.page %>のビルドに失敗した。
+  <%- else -%>
   <%= viewDuration(@emerge.duration) %>で
   <%= link_to @emerge.package.fullname, @emerge.package.page %>をビルドした
+  <%- end -%>
 </p>
 
+<h4>ログ</h4>
 <div>
   <pre>
     <%= @emerge.log %>
+  </pre>
+</div>
+
+<h4>エラーログ</h4>
+<div>
+  <pre>
+    <%= @emerge.errorlog %>
   </pre>
 </div>
 

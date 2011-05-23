@@ -14,6 +14,7 @@ user = "naota344"
 token = "c50a5090f305b82ab6a5"
 
 uploadLog = True
+uploadErorrLog = True
 cleanLog = True 
 
 portagelog = "/var/log/emerge.log"
@@ -30,9 +31,25 @@ def convTime(tm):
 
 def sendQuery(package, end, duration, logfile):
     (category, name, version) = parsePackage(package)
+    log = ""
+    if logfile: log = open(logfile).read()
     data = json.dumps({"emerge": {"duration": duration,
                                   "buildtime": convTime(end),
-                                  "log": open(logfile).read()},
+                                  "log": log, "errorlog": ""},
+                       "package":{"category": category,
+                                  "name": name,
+                                  "version": version},
+                       "user": user,
+                       "token": token})
+    urlopen(urllib2.Request(url, data, {"Content-Type": "application/json",
+                                        "Accept": "application/json"}))
+
+def sendErrQuery(package, tm, logfile, errfile):
+    (category, name, version) = parsePackage(package)
+    data = json.dumps({"emerge": {"duration": 0,
+                                  "buildtime": tm,
+                                  "log": open(logfile).read(),
+                                  "errorlog": open(errfile).read()},
                        "package":{"category": category,
                                   "name": name,
                                   "version": version},
@@ -72,7 +89,23 @@ if __name__ == "__main__":
         time.sleep(1)
         (beg, end)=searchLog(package)
         if beg and end: break
-    if not beg or not end: sys.exit(2)
+    if not beg or not end: 
+        if not logfile or not uploadErorrLog:
+            sys.exit(0)
+        with open(logfile) as plf:
+            error = False
+            reglogfile=re.compile(r"^The complete build log is located at '(.+)'.$")
+            for l in plf:
+                if error:
+                    m = reglogfile.match(l)
+                    if m:
+                        tm = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+                        sendErrQuery(package, tm, logfile, m.group(1))
+                        if cleanLog: os.remove(logfile)
+                        sys.exit(0)
+                else:
+                    if l.startswith("ERROR: "): error=True
+        sys.exit(0)
     sendQuery(package, end, end-beg, logfile)
-    if logfile and cleanLog:
-        os.remove(logfile)
+    if logfile and cleanLog: os.remove(logfile)
+        
