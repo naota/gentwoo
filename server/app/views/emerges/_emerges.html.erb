@@ -13,12 +13,13 @@
     <%- if needuser -%>
     <%= link_to emerge.user.name, emerge.user.link %>さんが
     <%- end -%>
+    <%= link_to emerge.package.fullname, emerge.package.page %>
     <%- if emerge.duration == 0 -%>
-    <%= link_to emerge.package.fullname, emerge.package.page %>のemergeに失敗しました。
+    のemergeに失敗しました。
     <%- else -%>
-    <%= link_to emerge.package.fullname, emerge.package.page %>をemergeしました。
+    をemergeしました。
+    <%- end -%>
   </td>
-  <%- end -%>
   <td>
     <%- if emerge.duration == 0 -%>
     失敗

@@ -9,12 +9,25 @@
   <%- end -%>
 </div>
 
+<h3>最近人気のpackage</h3>
+<div>
+<table>
+<tr><td>回数</td><td>package</td></tr>
+<% @poppkg.each do |pkg| %>
+<tr>
+  <td><%= pkg.cnt %></td>
+  <td><%= link_to pkg.fullname, pkg.page %></td>
+</tr>
+<% end %>
+</table>
+</div>
 
 <h3>最近のemerge</h3>
 <div>
 <%= render(:partial => "emerges",
            :object => @emerges,
            :locals => {:needuser => true}) %>
+<a href="/emerges/">もっと見る ...</a>
 </div>
 <h3>最近のエラーが出たemerge</h3>
 <div>

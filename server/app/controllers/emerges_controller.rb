@@ -2,8 +2,15 @@ class EmergesController < ApplicationController
   before_filter :login_required, :only => [:my]
 
   def home
-    @emerges = Emerge.limit(30)
-    @erremerges = Emerge.where("duration=0").limit(30)
+    @emerges = Emerge.limit(10)
+    @erremerges = Emerge.where("duration=0").limit(10)
+    @poppkg = Package.find(:all, 
+                           :select => "count(emerges.id) cnt,*",
+                           :joins => :emerge,
+                           :conditions => ["buildtime > ?", 7.day.ago],
+                           :group => "package_id",
+                           :order => "cnt DESC",
+                           :limit => 10)
     respond_to do |format|
       format.html
     end
