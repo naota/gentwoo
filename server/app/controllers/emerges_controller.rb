@@ -2,8 +2,8 @@ class EmergesController < ApplicationController
   before_filter :login_required, :only => [:my]
 
   def home
-    @emerges = Emerge.limit(10)
-    @erremerges = Emerge.where("duration=0").limit(10)
+    @emerges = Emerge.order("buildtime DESC").limit(10)
+    @erremerges = Emerge.where("duration=0").order("buildtime DESC").limit(10)
     @poppkg = Package.find(:all, 
                            :select => "count(emerges.id) cnt,*",
                            :joins => :emerge,
@@ -40,7 +40,7 @@ class EmergesController < ApplicationController
 
   def useremerges
     @user = User.find_by_login(params[:name])
-    @emerges = @user.emerge.all
+    @emerges = @user.emerge.order("buildtime DESC")
     respond_to do |format|
       format.html
     end
@@ -53,8 +53,8 @@ class EmergesController < ApplicationController
   end
 
   def package
-    @pkgs = Package.where(["category = ? AND name = ? AND version = ?",
-                           params[:category], params[:name], params[:version]])
+    @pkgs = Package.where(["category = ? AND name = ?",
+                           params[:category], params[:name]])
     respond_to do |format|
       format.html
     end
@@ -72,7 +72,7 @@ class EmergesController < ApplicationController
   def create
     @user = User.find_by_login(params[:user])
     @emerge = nil
-    if @user.sitekey == params[:token]
+    if @user.sitekey and @user.sitekey == params[:token]
       then
         @package = getPackage(params[:package])
         @emerge = @user.emerge.build(params[:emerge])

@@ -13,7 +13,11 @@ class MyController < ApplicationController
 
   def key
     @user = current_user
-    @user.sitekey = genToken() unless @user.sitekey
+    unless @user.sitekey
+      @user.sitekey = genToken()
+      @user.save
+    end
+
     respond_to do |format|
       format.html # key.html.erb
     end
