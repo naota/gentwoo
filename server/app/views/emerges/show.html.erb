@@ -1,25 +1,9 @@
-<p id="notice"><%= notice %></p>
+<h2><%= @emerge.user.name %>のemerge</h2>
 
 <p>
-  <b>Buildtime:</b>
-  <%= @emerge.buildtime %>
+  <%= @emerge.buildtime.to_s(:jp) %>に
+  <%= viewDuration(@emerge.duration) %>で
+  <%= link_to @emerge.package.fullname, @emerge.package.page %>をビルドした
 </p>
 
-<p>
-  <b>Duration:</b>
-  <%= @emerge.duration %>
-</p>
-
-<p>
-  <b>Package:</b>
-  <%= @emerge.package %>
-</p>
-
-<p>
-  <b>User:</b>
-  <%= @emerge.user %>
-</p>
-
-
-<%= link_to 'Edit', edit_emerge_path(@emerge) %> |
-<%= link_to 'Back', emerges_path %>
+<%= link_to '戻る', emerges_path %>
