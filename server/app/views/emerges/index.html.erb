@@ -1,7 +1,7 @@
 <h1>emerge log</h1>
 
-<table>
 <% @emerges.each do |emerge| %>
-  <%= emerge.buildtime %>に<%= emerge.user %>さんが<%= emerge.package %>をemergeしました。(所用時間: <%= emerge.duration %>)
+  <div>
+  <%= emerge.buildtime.to_s(:jp) %>に<%= emerge.user.login %>さんが<%= emerge.package.fullname %>をemergeしました。(所用時間: <%= viewDuration(emerge.duration) %>)
+  </div>
 <% end %>
-</table>
