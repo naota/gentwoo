@@ -1,5 +1,14 @@
 class EmergesController < ApplicationController
   before_filter :login_required, :only => [:my]
+
+  def home
+    @emerges = Emerge.limit(30)
+    @erremerges = Emerge.where("duration=0").limit(30)
+    respond_to do |format|
+      format.html
+    end
+  end
+
   # GET /emerges
   # GET /emerges.xml
   def index

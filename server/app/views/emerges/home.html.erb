@@ -1,0 +1,14 @@
+<h1>GenTwoo: Socilal Compiling</h1>
+
+<h3>最近のemerge</h3>
+<div>
+<%= render(:partial => "emerges",
+           :object => @emerges,
+           :locals => {:needuser => true}) %>
+</div>
+<h3>最近のエラーが出たemerge</h3>
+<div>
+<%= render(:partial => "emerges",
+           :object => @erremerges,
+           :locals => {:needuser => true}) %>
+</div>
