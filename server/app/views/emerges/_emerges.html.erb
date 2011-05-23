@@ -9,6 +9,7 @@
   <td><%= emerge.buildtime.to_s(:jp) %></td>
   </td>
   <td>
+    <img src="<%= emerge.user.profile_image_url %>" style="vertical-align: middle" />
     <%- if needuser -%>
     <%= link_to emerge.user.name, emerge.user.link %>さんが
     <%- end -%>
