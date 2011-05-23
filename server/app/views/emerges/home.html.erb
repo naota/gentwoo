@@ -3,9 +3,9 @@
 <div>
   <%- if current_user -%>
   ようこそ<%= current_user.name =%>さん! 今日もコンパイルしてますか!?<br/>
-  <a href="/my">マイページに行く</a>/<a href="/logout">ログアウト</a>
+  <a href="my">マイページに行く</a>/<a href="logout">ログアウト</a>
   <%- else -%>
-  あなたもGenTwooでSocial Compileを始めませんか? 今すぐ<a href="/login">Twitterでログイン</a>
+  あなたもGenTwooでSocial Compileを始めませんか? 今すぐ<a href="login">Twitterでログイン</a>
   <%- end -%>
 </div>
 
@@ -27,7 +27,7 @@
 <%= render(:partial => "emerges",
            :object => @emerges,
            :locals => {:needuser => true}) %>
-<a href="/emerges/">もっと見る ...</a>
+<a href="emerges/">もっと見る ...</a>
 </div>
 <h3>最近のエラーが出たemerge</h3>
 <div>
