@@ -6,3 +6,4 @@ require File.expand_path('../application', __FILE__)
 Gentwoo::Application.initialize!
 
 Time::DATE_FORMATS[:jp] = "%Y年%m月%d日 %H時%M分"
+Time.zone = 'Tokyo'
