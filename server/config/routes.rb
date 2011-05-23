@@ -18,6 +18,8 @@ Gentwoo::Application.routes.draw do
 
   match 'packages/:category/:name' => 'packages#showpackage'
 
+  match 'users/:name' => 'users#show'
+
   # Sample resource route with options:
   #   resources :products do
   #     member do
