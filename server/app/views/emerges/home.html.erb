@@ -1,5 +1,15 @@
 <h1>GenTwoo: Socilal Compiling</h1>
 
+<div>
+  <%- if current_user -%>
+  ようこそ<%= current_user.name =%>さん! 今日もコンパイルしてますか!?<br/>
+  <a href="/my">マイページに行く</a>/<a href="/logout">ログアウト</a>
+  <%- else -%>
+  あなたもGenTwooでSocial Compileを始めませんか? 今すぐ<a href="/login">Twitterでログイン</a>
+  <%- end -%>
+</div>
+
+
 <h3>最近のemerge</h3>
 <div>
 <%= render(:partial => "emerges",

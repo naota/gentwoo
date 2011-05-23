@@ -1,2 +1,28 @@
-<h1><%= @user.name %></h1>
-クライアントに<a href="./key">Key</a>を設定してください。
+<h1><%= @user.name %>のマイページ</h1>
+
+<a href="/">Dashboard</a>/<a href="/my/emerges">自分のemergeを見る</a>
+
+<h3>使い方</h3>
+<ol>
+  <li><a href="/download/gentwoo.py">クライアントスクリプト</a>をダウンロードします。</li>
+  <li>クライアントスクリプトに<a href="/my/key">token</a>を設定してください。</li>
+  <li>クライアントスクリプトを設定します。
+    <ul>
+      <li>user: Twitter のログインIDです</li>
+      <li>token: 上にあるtokenを設定します。</li>
+      <li>uploadLog: emergeの簡単なログをアップロードするかどうかです。(True または False)</li>
+      <li>uploadErrorLog: emergeがエラーになった時に完全なエラーログをアップロードするかどうかです。(True または False)</li>
+      <li>cleanLog: emergeの簡単なログを削除するかどうかです。(True または False)</li>
+    </ul>
+  </li>
+  <li>スクリプトが起動されるようにPortage(/etc/make.conf)を設定します。 たとえばこのようにします。
+    <ul>
+      <li>PORTAGE_ELOG_CLASSES="log warn error qa"</li>
+      <li>PORTAGE_ELOG_SYSTEM="custom:* echo mail"</li>
+      <li>PORTAGE_ELOG_COMMAND="/home/naota/bin/gentwoo.py '${PACKAGE}' '${LOGFILE}'"</li>
+    </ul>
+    とりあえず customに errorがいけば大丈夫…なはず。
+  </li>
+  <li>あとはコンパイルするだけ!!</li>
+  <li>Just do it!</li>
+</ol>
