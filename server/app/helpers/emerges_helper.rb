@@ -9,8 +9,10 @@ module EmergesHelper
       days[0].to_s + "日" + hours[0].to_s + "時間" + mins[0].to_s + "分"
     elsif hours[0] > 1
       hours[0].to_s + "時間" + mins[0].to_s + "分"
+    elsif mins[0] > 1
+      mins[0].to_s + "分" + mins[1].to_s + "秒"
     else
-      mins[0].to_s + "分"
+      mins[1].to_s + "秒"
     end      
   end
 end
