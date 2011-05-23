@@ -15,4 +15,14 @@ module EmergesHelper
       mins[1].to_s + "秒"
     end      
   end
+
+  def average(pkg)
+    avg = pkg.emerge.average("duration",
+                             {:conditions => "duration!=0"})
+    if avg
+      "平均所用時間 "+viewDuration(avg.to_i)
+    else
+      "成功例なし"
+    end
+  end
 end

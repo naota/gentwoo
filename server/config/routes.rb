@@ -14,11 +14,10 @@ Gentwoo::Application.routes.draw do
   resources :emerges
   match 'my' => 'my#index'
   match 'my/key' => 'my#key'
-  match 'my/emerges' => 'my#emerges'
 
-  match 'packages/:category/:name' => 'packages#showpackage'
-
-  match 'users/:name' => 'users#show'
+  match 'my/emerges' => 'emerges#my'
+  match 'packages/:category/:name' => 'emerges#package'
+  match 'users/:name' => 'emerges#useremerges'
 
   # Sample resource route with options:
   #   resources :products do

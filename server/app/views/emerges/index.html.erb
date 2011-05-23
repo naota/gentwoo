@@ -1,7 +1,5 @@
 <h1>emerge log</h1>
 
-<% @emerges.reverse_each do |emerge| %>
-  <div>
-  <%= emerge.buildtime.to_s(:jp) %>に<%= emerge.user.login %>さんが<%= emerge.package.fullname %>をemergeしました。(所用時間: <%= viewDuration(emerge.duration) %>)
-  </div>
-<% end %>
+<%= render(:partial => "emerges",
+           :object => @emerges,
+           :locals => {:needuser => true}) %>

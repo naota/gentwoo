@@ -1,0 +1,5 @@
+<h2><%= @user.name %>の最近のemerge</h2>
+
+<%= render(:partial => "emerges",
+           :object => @emerges,
+           :locals => {:needuser => false}) %>

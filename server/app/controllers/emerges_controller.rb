@@ -1,5 +1,5 @@
 class EmergesController < ApplicationController
-  # before_filter :login_required, :only => [:create, :destroy]
+  before_filter :login_required, :only => [:my]
   # GET /emerges
   # GET /emerges.xml
   def index
@@ -19,6 +19,28 @@ class EmergesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @emerge }
+    end
+  end
+
+  def useremerges
+    @user = User.find_by_login(params[:name])
+    @emerges = @user.emerge.all
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def my
+    redirect_to :controller => 'emerges',
+                :action => 'useremerges',
+                :name => current_user.login
+  end
+
+  def package
+    @pkgs = Package.where(["category = ? AND name = ? AND version = ?",
+                           params[:category], params[:name], params[:version]])
+    respond_to do |format|
+      format.html
     end
   end
 
