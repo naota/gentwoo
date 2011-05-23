@@ -76,9 +76,12 @@ class EmergesController < ApplicationController
       if @emerge and @emerge.save
         format.xml  { render :xml => @emerge, :status => :created, :location => @emerge }
         format.json  { render :json => @emerge, :status => :created, :location => @emerge }
-      else
+      elsif @emerge
         format.xml  { render :xml => @emerge.errors, :status => :unprocessable_entity }
         format.json  { render :json => @emerge.errors, :status => :unprocessable_entity }
+      else
+        format.xml  { render :xml => "", :status => :unprocessable_entity }
+        format.json  { render :json => "", :status => :unprocessable_entity }
       end
     end
   end
