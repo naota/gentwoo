@@ -2,5 +2,4 @@ server/.bundle
 server/db/*.sqlite3
 server/log/*.log
 server/tmp/
-server/vendor/plugins/twitter-auth/
 *~
