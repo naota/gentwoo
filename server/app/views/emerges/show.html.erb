@@ -6,4 +6,10 @@
   <%= link_to @emerge.package.fullname, @emerge.package.page %>をビルドした
 </p>
 
+<div>
+  <pre>
+    <%= @emerge.log %>
+  </pre>
+</div>
+
 <%= link_to '戻る', emerges_path %>

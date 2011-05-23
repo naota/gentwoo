@@ -13,7 +13,7 @@ url = "http://localhost:3000/emerges"
 user = "naota344"
 token = "c50a5090f305b82ab6a5"
 
-postLog = False # not implemented
+uploadLog = True
 cleanLog = True 
 
 portagelog = "/var/log/emerge.log"
@@ -28,10 +28,11 @@ def parsePackage(package):
 def convTime(tm):
     return datetime.datetime.utcfromtimestamp(tm).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-def sendQuery(package, end, duration):
+def sendQuery(package, end, duration, logfile):
     (category, name, version) = parsePackage(package)
     data = json.dumps({"emerge": {"duration": duration,
-                                  "buildtime": convTime(end)},
+                                  "buildtime": convTime(end),
+                                  "log": open(logfile).read()},
                        "package":{"category": category,
                                   "name": name,
                                   "version": version},
@@ -63,7 +64,7 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         sys.exit(1)
     package = sys.argv[1]
-    if len(sys.argv) > 2:
+    if len(sys.argv) > 2 and uploadLog:
         logfile = sys.argv[2]
     else:
         logfile = None
@@ -72,6 +73,6 @@ if __name__ == "__main__":
         (beg, end)=searchLog(package)
         if beg and end: break
     if not beg or not end: sys.exit(2)
-    sendQuery(package, end, end-beg)
+    sendQuery(package, end, end-beg, logfile)
     if logfile and cleanLog:
         os.remove(logfile)

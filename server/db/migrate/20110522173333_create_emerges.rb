@@ -5,6 +5,7 @@ class CreateEmerges < ActiveRecord::Migration
       t.integer :duration
       t.references :package
       t.references :user
+      t.text :log
 
       t.timestamps
     end
