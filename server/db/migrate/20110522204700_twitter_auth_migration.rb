@@ -37,6 +37,8 @@ class TwitterAuthMigration < ActiveRecord::Migration
       t.string :access_token
       t.string :access_secret
 
+      t.string :sitekey
+
       t.timestamps
     end
   end

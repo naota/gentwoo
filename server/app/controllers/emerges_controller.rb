@@ -65,7 +65,7 @@ class EmergesController < ApplicationController
   def create
     @user = User.find_by_login(params[:user])
     @emerge = nil
-    if @user.remember_token == params[:token]
+    if @user.sitekey == params[:token]
       then
         @package = getPackage(params[:package])
         @emerge = @user.emerge.build(params[:emerge])

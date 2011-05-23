@@ -7,8 +7,13 @@ class MyController < ApplicationController
     end
   end
   
+  def genToken()
+    ActiveSupport::SecureRandom.hex(16)
+  end
+
   def key
     @user = current_user
+    @user.sitekey = genToken() unless @user.sitekey
     respond_to do |format|
       format.html # key.html.erb
     end
