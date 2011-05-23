@@ -16,6 +16,8 @@ Gentwoo::Application.routes.draw do
   match 'my/key' => 'my#key'
   match 'my/emerges' => 'my#emerges'
 
+  match 'packages/:category/:name' => 'packages#showpackage'
+
   # Sample resource route with options:
   #   resources :products do
   #     member do
