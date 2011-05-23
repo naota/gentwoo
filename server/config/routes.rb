@@ -14,6 +14,7 @@ Gentwoo::Application.routes.draw do
   resources :emerges
   match 'my' => 'my#index'
   match 'my/key' => 'my#key'
+  match 'my/emerges' => 'my#emerges'
 
   # Sample resource route with options:
   #   resources :products do

@@ -13,4 +13,11 @@ class MyController < ApplicationController
       format.html # key.html.erb
     end
   end
+
+  def emerges
+    @emerges = current_user.emerge.all
+    respond_to do |format|
+      format.html # key.html.erb
+    end
+  end
 end

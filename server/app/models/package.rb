@@ -3,4 +3,7 @@ class Package < ActiveRecord::Base
   def fullname
     category + "/" + name + "-" + version
   end
+  def page
+    "/packages/" + category + "/" + name + "/" + version
+  end
 end
