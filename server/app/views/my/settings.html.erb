@@ -1,7 +1,7 @@
 <%= form_for @user, {:url => "/my/savesettings"} do |f| %>
 <div class="field">
   emergeした時につぶやく: <%= f.check_box :tweet_emerged %><br />
-  コメントされた時につぶやく: <%= f.check_box :tweet_comment %><br />
+  コメントした時につぶやく: <%= f.check_box :tweet_comment %><br />
 </div>
 <div class="actions">
   <%= f.submit %>
