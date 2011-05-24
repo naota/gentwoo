@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class EmergesController < ApplicationController
   before_filter :login_required, :only => [:my]
 
@@ -92,14 +93,23 @@ class EmergesController < ApplicationController
     @user = User.find_by_login(params[:user])
     @emerge = nil
     if @user.sitekey and @user.sitekey == params[:token]
-      then
-        @package = getPackage(params[:package])
-        @emerge = @user.emerge.build(params[:emerge])
-        @emerge.package = @package
-      end
+      @package = getPackage(params[:package])
+      @emerge = @user.emerge.build(params[:emerge])
+      @emerge.package = @package
+    end
     
     respond_to do |format|
       if @emerge and @emerge.save
+        if @user.tweet_emerged
+          stat = @package.fullname + 
+            if @emerge.duration == 0
+              "のemergeに失敗しました。"
+            else
+              "をemergeしました ("+@emerge.pretty_duration+")"
+            end +
+            " http://gentwoo.elisp.net"+@emerge.page
+          @user.twitter.post('/statuses/update.json', :status => stat)
+        end
         format.xml  { render :xml => @emerge, :status => :created, :location => @emerge }
         format.json  { render :json => @emerge, :status => :created, :location => @emerge }
       elsif @emerge
