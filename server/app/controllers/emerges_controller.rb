@@ -5,7 +5,7 @@ class EmergesController < ApplicationController
     @emerges = Emerge.order("buildtime DESC").limit(10)
     @erremerges = Emerge.where("duration=0").order("buildtime DESC").limit(10)
     @poppkg = Package.find(:all, 
-                           :select => "count(emerges.id) cnt,*",
+                           :select => "count(emerges.id) AS cnt, packages.*",
                            :joins => :emerge,
                            :conditions => ["buildtime > ?", 7.day.ago],
                            :group => "package_id",
