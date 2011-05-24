@@ -38,10 +38,13 @@ class EmergesController < ApplicationController
   # GET /emerges/1.xml
   def show
     @emerge = Emerge.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @emerge }
+    if (params[:type] == "ajax")
+      render :layout => "ajax"
+    else
+      respond_to do |format|
+        format.html # show.html.erb
+        format.xml  { render :xml => @emerge }
+      end
     end
   end
 

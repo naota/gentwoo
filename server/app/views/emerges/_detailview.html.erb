@@ -1,0 +1,8 @@
+<script>
+$(function() {
+  $(".detail").colorbox({width: "75%", height: "75%", iframe: true,
+                         href: function(){
+                                  var url=$(this).attr('href');
+                                  return url+"/ajax";}});
+});
+</script>

@@ -1,9 +1,5 @@
 <h2><%= @pkgs.first.category %>/<%= @pkgs.first.name %></h2>
-<script>
-  $(function() {
-    $(".detail").colorbox({width: "75%", height: "75%", iframe: true});
-  });
-</script>
+<%= render(:partial => "detailview" ) %>
 
 <% @pkgs.each do |pkg| %>
 <h3><%= pkg.version %></h3>
