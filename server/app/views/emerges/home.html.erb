@@ -9,45 +9,66 @@
   <%- end -%>
 </div>
 
-<h3>最近人気のpackage</h3>
-<div>
-<table>
-<tr><td>回数</td><td>package</td></tr>
-<% @poppkg.each do |pkg| %>
-<tr>
-  <td><%= pkg.cnt %></td>
-  <td><%= link_to pkg.fullname, pkg.page %></td>
-</tr>
-<% end %>
-</table>
+<div id="topheader">
+  <div style="float:left; width: 45%;">
+    <h3>最近人気のpackage</h3>
+    <table>
+      <tr><td>回数</td><td>package</td></tr>
+      <% @poppkg.each do |pkg| %>
+      <tr>
+	<td><%= pkg.cnt %></td>
+	<td><%= link_to pkg.fullname, pkg.page %></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <div style="float:left; width: 45%;">
+    <h3>最近よくemergeしている人</h3>
+    <table>
+      <tr><td>回数</td><td></td></tr>
+      <% @popperson.each do |p| %>
+      <tr>
+	<td><%= p.cnt %></td>
+	<td>
+	  <img src="<%= p.profile_image_url %>" style="vertical-align: middle" />
+	  <%= link_to p.name, p.link %>
+	</td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <div style="clear:both"></div>
 </div>
 
-<h3>最近よくemergeしている人</h3>
-<div>
-<table>
-<tr><td>回数</td><td></td></tr>
-<% @popperson.each do |p| %>
-<tr>
-  <td><%= p.cnt %></td>
-  <td>
-    <img src="<%= p.profile_image_url %>" style="vertical-align: middle" />
-    <%= link_to p.name, p.link %>
-  </td>
-</tr>
-<% end %>
-</table>
-</div>
+<script>
+  $(function() {
+    $( "#tabs" ).tabs({
+      ajaxOptions: {
+        error: function( xhr, status, index, anchor ) {
+          $( anchor.hash ).html(
+            "読みこみに失敗しました。 ");
+        }
+      }
+    });
+  });
+</script>
 
-<h3>最近のemerge</h3>
-<div>
-<%= render(:partial => "emerges",
-           :object => @emerges,
-           :locals => {:needuser => true}) %>
-<a href="emerges/">もっと見る ...</a>
-</div>
-<h3>最近のエラーが出たemerge</h3>
-<div>
-<%= render(:partial => "emerges",
-           :object => @erremerges,
-           :locals => {:needuser => true}) %>
+<div id="tabs" style="margin-top: 30px">
+  <ul>
+    <li><a href="#tabs-1">最近のemerge</a></li>
+    <li><a href="#tabs-2">最近のエラーが出たemerge</a></li>
+  </ul>
+  <div id="tabs-1">
+    <%= render(:partial => "emerges",
+    :object => @emerges,
+    :locals => {:needuser => true}) %>
+    <a href="emerges/">もっと見る ...</a>
+  </div>
+  <div id="tabs-2">
+    <%= render(:partial => "emerges",
+    :object => @erremerges,
+    :locals => {:needuser => true}) %>
+  </div>
 </div>
