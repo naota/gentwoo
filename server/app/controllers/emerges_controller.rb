@@ -19,7 +19,7 @@ class EmergesController < ApplicationController
   # GET /emerges
   # GET /emerges.xml
   def index
-    @emerges = Emerge.all
+    @emerges = Emerge.order("buildtime DESC")
 
     respond_to do |format|
       format.html # index.html.erb
