@@ -4,6 +4,6 @@ class Package < ActiveRecord::Base
     category + "/" + name + "-" + version
   end
   def page
-    "/packages/" + category + "/" + name + "/?version=" + version
+    "packages/" + category + "/" + name + "/?version=" + version
   end
 end
