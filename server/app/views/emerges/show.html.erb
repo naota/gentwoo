@@ -9,6 +9,9 @@
   <%= link_to @emerge.package.fullname, @emerge.package.page %>をビルドした
   <%- end -%>
 </p>
+<p>
+  <a href="/emerges/<%= @emerge.id %>#comments" target="_top">コメント</a>
+</p>
 
 <script>
   $(function() {
@@ -34,3 +37,38 @@
     </textarea>
   </div>
 </div>
+
+<%- if @showcomment -%>
+<a name="comments"></a>
+<div style="margin-top: 30px">
+  <h3>コメント</h3>
+  <div>
+    <% @comments.each do |comment| %>
+    <a name="comment_<%= comment.id %>"></a>
+    <div style="border-style: outset; border: 1">
+      <img src="<%= comment.user.profile_image_url %>" style="vertical-align: middle" />
+      <%= comment.user.name %> <%= comment.created_at.to_s(:jp) %><br/>
+      <div>
+	<%= simple_format comment.content %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <div>
+    <h4>コメントを書く</h4>
+    <%- if current_user -%>
+    <%= form_for([@emerge, @emerge.comments.build]) do |f| %>
+    <div class="field">
+      <%= f.label :content %><br />
+      <%= f.text_area :content %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+    <% end %>
+    <%- else -%>
+    コメントを書くには<a href="/login">Twitterでログイン</a>してください。
+    <%- end -%>
+  </div>
+</div>
+<%- end -%>

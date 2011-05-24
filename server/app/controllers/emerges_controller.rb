@@ -17,7 +17,8 @@ class EmergesController < ApplicationController
                            :conditions => ["buildtime > ?", 7.day.ago],
                            :group => "user_id",
                            :order => "cnt DESC",
-                           :limit => 10)
+                           :limit => 5)
+    @recentcomments = Comment.order("created_at DESC").limit(5)
     respond_to do |format|
       format.html
     end
@@ -38,9 +39,12 @@ class EmergesController < ApplicationController
   # GET /emerges/1.xml
   def show
     @emerge = Emerge.find(params[:id])
+    @comments = @emerge.comments
     if (params[:type] == "ajax")
+      @showcomment = false
       render :layout => "ajax"
     else
+      @showcomment = true
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @emerge }

@@ -1,7 +1,9 @@
 Gentwoo::Application.routes.draw do
   match 'emerges/ajaxerrorlog/:id' => 'emerges#ajaxerrorlog'
 
-  resources :emerges
+  resources :emerges do
+    resources :comments
+  end
   match 'my' => 'my#index'
   match 'my/key' => 'my#key'
 
