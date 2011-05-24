@@ -10,16 +10,27 @@
   <%- end -%>
 </p>
 
-<h4>ログ</h4>
-<div>
-  <pre>
-    <%= @emerge.log %>
-  </pre>
-</div>
+<script>
+  $(function() {
+    $( "#tabs" ).tabs({
+      ajaxOptions: {
+        error: function( xhr, status, index, anchor ) {
+          $( anchor.hash ).html(
+            "読みこみに失敗しました。 ");
+        }
+      }
+    });
+  });
+</script>
 
-<h4>エラーログ</h4>
-<div>
-  <pre>
-    <%= @emerge.errorlog %>
-  </pre>
+<div id="tabs" style="">
+  <ul>
+    <li><a href="#tabs-1">ログ</a></li>
+    <li><a href="/emerges/ajaxerrorlog/<%= @emerge.id %>">エラーログ</a></li>
+  </ul>
+  <div id="tabs-1">
+    <textarea style="width: 100%; height: 330px" readonly="true">
+      <%= @emerge.log %>
+    </textarea>
+  </div>
 </div>

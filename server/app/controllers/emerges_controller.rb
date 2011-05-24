@@ -48,6 +48,11 @@ class EmergesController < ApplicationController
     end
   end
 
+  def ajaxerrorlog
+    @emerge = Emerge.find(params[:id])
+    render :layout => 'ajax'
+  end
+
   def useremerges
     @user = User.find_by_login(params[:name])
     @emerges = @user.emerge.order("buildtime DESC")
