@@ -11,6 +11,13 @@ class EmergesController < ApplicationController
                            :group => "package_id",
                            :order => "cnt DESC",
                            :limit => 10)
+    @popperson = User.find(:all, 
+                           :select => "count(emerges.id) AS cnt, users.*",
+                           :joins => :emerge,
+                           :conditions => ["buildtime > ?", 7.day.ago],
+                           :group => "user_id",
+                           :order => "cnt DESC",
+                           :limit => 10)
     respond_to do |format|
       format.html
     end

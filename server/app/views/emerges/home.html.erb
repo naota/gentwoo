@@ -22,6 +22,22 @@
 </table>
 </div>
 
+<h3>最近よくemergeしている人</h3>
+<div>
+<table>
+<tr><td>回数</td><td></td></tr>
+<% @popperson.each do |p| %>
+<tr>
+  <td><%= p.cnt %></td>
+  <td>
+    <img src="<%= p.profile_image_url %>" style="vertical-align: middle" />
+    <%= link_to p.name, p.link %>
+  </td>
+</tr>
+<% end %>
+</table>
+</div>
+
 <h3>最近のemerge</h3>
 <div>
 <%= render(:partial => "emerges",
