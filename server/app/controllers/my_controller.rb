@@ -22,4 +22,22 @@ class MyController < ApplicationController
       format.html # key.html.erb
     end
   end
+
+  def settings
+    @user = current_user
+    respond_to do |format|
+      format.html
+    end
+  end
+
+
+  def savesettings
+    if true
+      @user = current_user
+      @user.tweet_emerged = params[:user][:tweet_emerged]
+      @user.tweet_comment = params[:user][:tweet_comment]
+      @user.save
+    end
+    redirect_to "/my/settings"
+  end
 end

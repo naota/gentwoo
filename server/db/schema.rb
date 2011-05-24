@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110525011000) do
+ActiveRecord::Schema.define(:version => 20110525011001) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -40,37 +40,7 @@ ActiveRecord::Schema.define(:version => 20110525011000) do
     t.datetime "updated_at"
   end
 
-  create_table "users", :force => true do |t|
-    t.string   "twitter_id"
-    t.string   "login"
-    t.binary   "crypted_password"
-    t.string   "salt"
-    t.string   "remember_token"
-    t.datetime "remember_token_expires_at"
-    t.string   "name"
-    t.string   "location"
-    t.string   "description"
-    t.string   "profile_image_url"
-    t.string   "url"
-    t.boolean  "protected"
-    t.string   "profile_background_color"
-    t.string   "profile_sidebar_fill_color"
-    t.string   "profile_link_color"
-    t.string   "profile_sidebar_border_color"
-    t.string   "profile_text_color"
-    t.string   "profile_background_image_url"
-    t.boolean  "profile_background_tile"
-    t.integer  "friends_count"
-    t.integer  "statuses_count"
-    t.integer  "followers_count"
-    t.integer  "favourites_count"
-    t.integer  "utc_offset"
-    t.string   "time_zone"
-    t.string   "access_token"
-    t.string   "access_secret"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "sitekey",                      :limit => nil
-  end
+# Could not dump table "users" because of following StandardError
+#   Unknown type 'bool' for column 'tweet_emerged'
 
 end
