@@ -7,6 +7,6 @@ class Emerge < ActiveRecord::Base
     self.package.fullname
   end
   def page
-    "emerges/" + self.id.to_s
+    "/emerges/" + self.id.to_s
   end
 end

@@ -8,6 +8,7 @@
   <link type="text/css" href="/stylesheets/cupertino/jquery-ui-1.8.13.custom.css"
   	rel="Stylesheet" />
   <link type="text/css" href="/stylesheets/colorbox.css" rel="Stylesheet" />
+  <link type="text/css" href="/stylesheets/menu.css" rel="Stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script> 
   <script type="text/javascript" src="/javascripts/jquery-ui-1.8.13.custom.min.js"></script>
   <script type="text/javascript" src="/javascripts/jquery.colorbox.js"></script>
@@ -15,6 +16,27 @@
 <body>
 
 <div style="margin: 0 auto; width: 80%">
+<h1>GenTwoo: Socilal Compiling</h1>
+
+<div>
+  <ul id="menu" class="blue">
+    <li><a href="/">Dashboard</a></li>
+    <li><a href="/emerges">全てのemerge</a></li>
+    <%- if current_user -%>
+    <li><a href="/my">マイページに行く(使い方)</a></li>
+    <li><a href="/logout">ログアウト</a></li>
+    <%- else -%>
+    <li><a href="/login">ログイン</a></li>
+    <%- end -%>
+  </ul>
+  <div>
+    <%- if current_user -%>    
+    <%- else -%>
+    あなたもGenTwooでSocial Compileを始めませんか? 今すぐ<a href="/login">Twitterでログイン</a>
+    <%- end -%>
+  </div>
+</div>
+
 <%= yield %>
 </div>
 
