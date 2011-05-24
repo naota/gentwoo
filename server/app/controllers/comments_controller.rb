@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
 
   def create
     @emerge = Emerge.find(params[:emerge_id])
-    params[:comment][:user_id] = current_user
+    params[:comment][:user_id] = current_user.id
     @comment = @emerge.comments.create(params[:comment])
     
     if current_user.tweet_comment
