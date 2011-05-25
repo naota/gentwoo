@@ -109,7 +109,7 @@ class EmergesController < ApplicationController
               else
                 "をemergeしました ("+@emerge.pretty_duration+")"
               end +
-              " http://gentwoo.elisp.net"+@emerge.page
+              " http://gentwoo.elisp.net"+@emerge.page+" #GenTwoo"
             @user.twitter.post('/statuses/update.json', :status => stat)
           end
         end

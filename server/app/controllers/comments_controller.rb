@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
     if current_user.tweet_comment
       head = "@"+@emerge.user.login+" さんの"+@emerge.fullname+"に"
       body = @comment.content
-      foot = "コメントしました。 "+"http://gentwoo.elisp.net"+emerge_path(@emerge)
+      foot = "コメントしました。 "+"http://gentwoo.elisp.net"+emerge_path(@emerge)+" #GenTwoo"
 
       headlen = head.split(//u).length
       bodylen = body.split(//u).length

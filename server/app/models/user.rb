@@ -43,7 +43,7 @@ class User < TwitterAuth::GenericUser
 
     self.emerges.update_all ["tobe_tweet = ?", false], ["tobe_tweet = ?", true]
 
-    foot = " http://gentwoo.elisp.net"+self.link
+    foot = " http://gentwoo.elisp.net"+self.link+" #GenTwoo"
     limit = 140 - foot.length
 
     if emerges_failed.length > 0
