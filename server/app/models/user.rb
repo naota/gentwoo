@@ -66,6 +66,7 @@ class User < TwitterAuth::GenericUser
     end
 
     if succ_txt.split(//u).length > limit
+      emerges_succ = self.emerges.where("tobe_tweet = ? AND duration <> 0", true)
       succ_time = pretty_duration(emerges_succ.collect{|e| e.duration}.sum)
       succ_txt = toLimitedEmergesList(emerges_succ, 140 - foot.length,
                                       "をemergeしました。(のべ"+succ_time+")",
