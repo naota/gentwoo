@@ -1,5 +1,5 @@
 class Package < ActiveRecord::Base
-  has_many :emerge
+  has_many :emerges
   has_many :comment, :as => :commentable
 
   def fullname

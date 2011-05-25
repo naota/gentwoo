@@ -7,14 +7,14 @@ class EmergesController < ApplicationController
     @erremerges = Emerge.where("duration=0").order("buildtime DESC").limit(10)
     @poppkg = Package.find(:all, 
                            :select => "count(emerges.id) AS cnt, packages.*",
-                           :joins => :emerge,
+                           :joins => :emerges,
                            :conditions => ["buildtime > ?", 7.day.ago],
                            :group => "package_id",
                            :order => "cnt DESC",
                            :limit => 10)
     @popperson = User.find(:all, 
                            :select => "count(emerges.id) AS cnt, users.*",
-                           :joins => :emerge,
+                           :joins => :emerges,
                            :conditions => ["buildtime > ?", 7.day.ago],
                            :group => "user_id",
                            :order => "cnt DESC",
@@ -60,7 +60,7 @@ class EmergesController < ApplicationController
 
   def useremerges
     @user = User.find_by_login(params[:name])
-    @emerges = @user.emerge.order("buildtime DESC")
+    @emerges = @user.emerges.order("buildtime DESC")
     respond_to do |format|
       format.html
     end
@@ -94,7 +94,7 @@ class EmergesController < ApplicationController
     @emerge = nil
     if @user.sitekey and @user.sitekey == params[:token]
       @package = getPackage(params[:package])
-      @emerge = @user.emerge.build(params[:emerge])
+      @emerge = @user.emerges.build(params[:emerge])
       @emerge.package = @package
       @emerge.tobe_tweet = @user.delay_emerge_tweet
     end

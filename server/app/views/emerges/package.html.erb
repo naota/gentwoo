@@ -5,6 +5,6 @@
 <h3><%= pkg.version %></h3>
 <%= average(pkg) %>
 <%= render(:partial => "emerges",
-           :object => pkg.emerge.order("buildtime DESC"),
+           :object => pkg.emerges.order("buildtime DESC"),
            :locals => {:needuser => true}) %>
 <% end %>
