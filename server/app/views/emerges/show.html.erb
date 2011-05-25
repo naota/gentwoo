@@ -10,7 +10,8 @@
   <%- end -%>
 </p>
 <p>
-  <a href="/emerges/<%= @emerge.id %>#comments" target="_top">コメント</a>
+  <a href="/emerges/<%= @emerge.id %>#comments" target="_top">コメント 
+    (<%= @emerge.comments.count %>件)</a>
 </p>
 
 <script>
