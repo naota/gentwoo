@@ -35,6 +35,7 @@ class MyController < ApplicationController
     if true
       @user = current_user
       @user.tweet_emerged = params[:user][:tweet_emerged]
+      @user.delay_emerge_tweet = params[:user][:delay_emerge_tweet]
       @user.tweet_comment = params[:user][:tweet_comment]
       @user.save
     end
