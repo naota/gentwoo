@@ -50,27 +50,27 @@ class User < TwitterAuth::GenericUser
       failed_txt = toLimitedEmergesList(emerges_failed, limit,
                                         "のemergeに失敗しました。",
                                         emerges_failed.length.to_s+"個のemergeに失敗しました。")
+      limit -= failed_txt.split(//u).length
     else
       failed_txt = ""
     end
 
-    limit -= failed_txt.split(//u).length
-
     if emerges_succ.length > 0
       succ_time = pretty_duration(emerges_succ.collect{|e| e.duration}.sum)
-      succ_txt = toLimitedEmergesList(emerges_succ.dup, limit,
-                                      "をemergeしました。("+succ_time+")",
+      succ_txt = toLimitedEmergesList(emerges_succ, limit,
+                                      "をemergeしました。(のべ"+succ_time+")",
                                       emerges_succ.length.to_s +
-                                      "個をemergeしました。("+succ_time+")")
+                                      "個をemergeしました。(のべ"+succ_time+")")
     else
       succ_txt = ""
     end
 
     if succ_txt.split(//u).length > limit
+      succ_time = pretty_duration(emerges_succ.collect{|e| e.duration}.sum)
       succ_txt = toLimitedEmergesList(emerges_succ, 140 - foot.length,
-                                      "をemergeしました。("+succ_time+")",
+                                      "をemergeしました。(のべ"+succ_time+")",
                                       emerges_succ.length.to_s +
-                                      "個をemergeしました。("+succ_time+")")
+                                      "個をemergeしました。(のべ"+succ_time+")")
       if failed_txt == ""
         [succ_txt+foot]
       else
@@ -83,7 +83,8 @@ class User < TwitterAuth::GenericUser
 
   def delayEmergeTweet
     self.delayEmergeTweetTxts.each do |txt|
-      self.twitter.post('/statuses/update.json', :status => txt)
+      p txt
+      # self.twitter.post('/statuses/update.json', :status => txt)
     end
   end
 end
