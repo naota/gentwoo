@@ -96,19 +96,22 @@ class EmergesController < ApplicationController
       @package = getPackage(params[:package])
       @emerge = @user.emerge.build(params[:emerge])
       @emerge.package = @package
+      @emerge.tobe_tweet = @user.delay_emerge_tweet
     end
     
     respond_to do |format|
       if @emerge and @emerge.save
         if @user.tweet_emerged
-          stat = @package.fullname + 
-            if @emerge.duration == 0
-              "のemergeに失敗しました。"
-            else
-              "をemergeしました ("+@emerge.pretty_duration+")"
-            end +
-            " http://gentwoo.elisp.net"+@emerge.page
-          @user.twitter.post('/statuses/update.json', :status => stat)
+          unless @user.delay_emerge_tweet
+            stat = @package.fullname + 
+              if @emerge.duration == 0
+                "のemergeに失敗しました。"
+              else
+                "をemergeしました ("+@emerge.pretty_duration+")"
+              end +
+              " http://gentwoo.elisp.net"+@emerge.page
+            @user.twitter.post('/statuses/update.json', :status => stat)
+          end
         end
         format.xml  { render :xml => @emerge, :status => :created, :location => @emerge }
         format.json  { render :json => @emerge, :status => :created, :location => @emerge }

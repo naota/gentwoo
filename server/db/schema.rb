@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110525011001) do
+ActiveRecord::Schema.define(:version => 20110525071259) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20110525011001) do
     t.datetime "updated_at"
     t.text     "log"
     t.text     "errorlog"
+    t.boolean  "tobe_tweet", :default => false
   end
 
   create_table "packages", :force => true do |t|
