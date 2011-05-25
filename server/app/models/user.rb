@@ -85,7 +85,11 @@ class User < TwitterAuth::GenericUser
   def delayEmergeTweet(tweet = true)
     self.delayEmergeTweetTxts.each do |txt|
       if tweet
-        self.twitter.post('/statuses/update.json', :status => txt)
+        begin
+          self.twitter.post('/statuses/update.json', :status => txt)
+        rescue TwitterAuth::Dispatcher::Error => e
+          p e
+        end
       else
         p txt
       end
