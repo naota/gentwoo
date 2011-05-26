@@ -8,3 +8,7 @@
            :object => pkg.emerges.order("buildtime DESC"),
            :locals => {:needuser => true}) %>
 <% end %>
+
+<div id="packages_gentoo">
+  <a href="http://packages.gentoo.org/package/<%= @pkgs.first.category %>/<%= @pkgs.first.name %>">Gentoo Packagesで見る</a>
+</div>
