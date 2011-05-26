@@ -60,9 +60,13 @@ class EmergesController < ApplicationController
 
   def useremerges
     @user = User.find_by_login(params[:name])
-    @emerges = @user.emerges.order("buildtime DESC")
-    respond_to do |format|
-      format.html
+    if @user
+      @emerges = @user.emerges.order("buildtime DESC")
+      respond_to do |format|
+        format.html
+      end
+    else
+      redirect_to "/404.html"
     end
   end
 
