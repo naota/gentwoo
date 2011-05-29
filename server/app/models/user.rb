@@ -36,8 +36,8 @@ class User < TwitterAuth::GenericUser
   end
 
   def delayEmergeTweetTxts
-    emerges_succ = self.emerges.where("tobe_tweet = ? AND duration <> 0", true)
-    emerges_failed = self.emerges.where("tobe_tweet = ? AND duration = 0", true)
+    emerges_succ = self.emerges.where("tobe_tweet = ? AND duration <> 0", true).order("buildtime desc")
+    emerges_failed = self.emerges.where("tobe_tweet = ? AND duration = 0", true).order("buildtime desc")
 
     return [] if emerges_succ.length + emerges_failed.length == 0
 
