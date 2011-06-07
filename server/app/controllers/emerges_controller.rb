@@ -61,7 +61,7 @@ class EmergesController < ApplicationController
   def useremerges
     @user = User.find_by_login(params[:name])
     if @user
-      @emerges = @user.emerges.order("buildtime DESC")
+      @emerges = @user.emerges.order("buildtime DESC").limit(50)
       respond_to do |format|
         format.html
       end
