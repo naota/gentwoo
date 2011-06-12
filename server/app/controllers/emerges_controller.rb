@@ -28,6 +28,7 @@ class EmergesController < ApplicationController
   def poppackage
     perpage = 20
     page = params[:page].to_i || 0
+    page = 0 if page < 0
     @poppkg = Package.find(:all, 
                            :select => "count(emerges.id) AS cnt, packages.*",
                            :joins => :emerges,
