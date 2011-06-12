@@ -46,6 +46,8 @@ class EmergesController < ApplicationController
     @prevpage = nil if @prevpage < 0
     @nextpage = nil if count < @nextpage * perpage
 
+    @basecount = perpage * page
+
     respond_to do |format|
       format.html
     end

@@ -10,9 +10,10 @@
   </div>
 
   <table>
-    <tr><td>回数</td><td>package</td></tr>
-    <% @poppkg.each do |pkg| %>
+    <tr><td>順位</td><td>回数</td><td>package</td></tr>
+    <% @poppkg.each_with_index do |pkg, i| %>
     <tr>
+      <td><%= @basecount+i+1 =%></td>
       <td><%= pkg.cnt %></td>
       <td><%= link_to pkg.fullname, pkg.page %></td>
     </tr>
