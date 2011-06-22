@@ -32,4 +32,20 @@ class CommentsController < ApplicationController
 
     redirect_to emerge_path(@emerge)
   end
+
+  def index
+    @site_title = "GenTwoo"
+    @site_url = "http://gentwoo.elisp.net/"
+    @site_description = "Social Compiling Site - GenTwoo"
+    @rss_url = "http://gentwoo.elisp.net/comments.rss"
+    @author = "GenTwoo"
+
+    @entries = Comment.order("created_at DESC").limit(20)
+
+    respond_to do |type|
+#      type.html
+      type.rss
+#      type.atom
+    end
+  end
 end

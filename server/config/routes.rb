@@ -16,5 +16,7 @@ Gentwoo::Application.routes.draw do
 
   match 'emerges/:id/:type' => 'emerges#show'
 
+  match 'comments(.:format)' => 'comments#index'
+
   root :to => "emerges#home"
 end
