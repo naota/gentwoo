@@ -10,13 +10,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110522170108) do
+ActiveRecord::Schema.define(:version => 20110522181302) do
 
   create_table "emerges", :force => true do |t|
     t.datetime "buildtime"
     t.integer  "duration"
     t.integer  "package_id"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "packages", :force => true do |t|
+    t.string   "category"
+    t.string   "name"
+    t.string   "version"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
