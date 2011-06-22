@@ -1,6 +1,10 @@
 <h2><%= @user.name %>の最近のemerge</h2>
 <%= render(:partial => "detailview" ) %>
 
+<%= render(:partial => "pagenav",
+	   :locals => {:prevpage => @prevpage, :nextpage => @nextpage }) %>
 <%= render(:partial => "emerges",
            :object => @emerges,
            :locals => {:needuser => false}) %>
+<%= render(:partial => "pagenav",
+	   :locals => {:prevpage => @prevpage, :nextpage => @nextpage }) %>

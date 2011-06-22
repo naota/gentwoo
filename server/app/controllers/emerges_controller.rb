@@ -28,7 +28,15 @@ class EmergesController < ApplicationController
   # GET /emerges
   # GET /emerges.xml
   def index
-    @emerges = Emerge.order("buildtime DESC").limit(50)
+    perpage = 20
+    page = params[:page].to_i || 0
+    @emerges = Emerge.order("buildtime DESC").limit(perpage).offset(page*perpage)
+    count = Emerge.count()
+    @prevpage = page - 1
+    @nextpage = page + 1
+
+    @prevpage = nil if @prevpage < 0
+    @nextpage = nil if count < @nextpage * perpage
 
     respond_to do |format|
       format.html # index.html.erb
@@ -61,7 +69,16 @@ class EmergesController < ApplicationController
   def useremerges
     @user = User.find_by_login(params[:name])
     if @user
-      @emerges = @user.emerges.order("buildtime DESC").limit(50)
+      perpage = 20
+      page = params[:page].to_i || 0
+      @emerges = @user.emerges.order("buildtime DESC").limit(perpage).offset(page*perpage)
+      count = @user.emerges.count()
+      @prevpage = page - 1
+      @nextpage = page + 1
+
+      @prevpage = nil if @prevpage < 0
+      @nextpage = nil if count < @nextpage * perpage
+
       respond_to do |format|
         format.html
       end

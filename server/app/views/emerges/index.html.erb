@@ -1,5 +1,9 @@
 <h1>emerge log</h1>
 
+<%= render(:partial => "pagenav",
+	   :locals => {:prevpage => @prevpage, :nextpage => @nextpage }) %>
 <%= render(:partial => "emerges",
            :object => @emerges,
            :locals => {:needuser => true}) %>
+<%= render(:partial => "pagenav",
+	   :locals => {:prevpage => @prevpage, :nextpage => @nextpage }) %>
