@@ -1,0 +1,18 @@
+development:
+  strategy: basic
+  api_timeout: 10
+  base_url: "https://twitter.com"
+  # randomly generated key for encrypting Twitter passwords
+  encryption_key: 
+  remember_for: 14 # days
+test:
+  strategy: basic
+  api_timeout: 10
+  base_url: "https://twitter.com"
+  encryption_key: 
+  remember_for: 14 # days
+production:
+  strategy: basic
+  api_timeout: 10
+  encryption_key: 
+  remember_for: 14 # days
