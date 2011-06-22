@@ -1,0 +1,30 @@
+<div >
+  <h2>最近人気のpackage</h2>
+  <div style="text-align:right">
+    <%- if @prevpage -%>
+    <a href="?page=<%= @prevpage %>">もっと上</a>
+    <%- end -%>
+    <%- if @nextpage -%>
+    <a href="?page=<%= @nextpage %>">もっと下</a>
+    <%- end -%>
+  </div>
+
+  <table>
+    <tr><td>回数</td><td>package</td></tr>
+    <% @poppkg.each do |pkg| %>
+    <tr>
+      <td><%= pkg.cnt %></td>
+      <td><%= link_to pkg.fullname, pkg.page %></td>
+    </tr>
+    <% end %>
+  </table>
+
+  <div style="text-align:right">
+    <%- if @prevpage -%>
+    <a href="?page=<%= @prevpage %>">もっと上</a>
+    <%- end -%>
+    <%- if @nextpage -%>
+    <a href="?page=<%= @nextpage %>">もっと下</a>
+    <%- end -%>
+  </div>
+</div>

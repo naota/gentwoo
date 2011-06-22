@@ -25,6 +25,33 @@ class EmergesController < ApplicationController
     end
   end
 
+  def poppackage
+    perpage = 20
+    page = params[:page].to_i || 0
+    @poppkg = Package.find(:all, 
+                           :select => "count(emerges.id) AS cnt, packages.*",
+                           :joins => :emerges,
+                           :conditions => ["buildtime > ?", 7.day.ago],
+                           :group => "package_id",
+                           :order => "cnt DESC",
+                           :limit => perpage,
+                           :offset => page*perpage)
+    count = Package.find(:all,
+                         :select => "DISTINCT package_id",
+                         :joins => :emerges,
+                         :conditions => ["buildtime > ?", 7.day.ago]).count()
+    @prevpage = page - 1
+    @nextpage = page + 1
+
+    @prevpage = nil if @prevpage < 0
+    @nextpage = nil if count < @nextpage * perpage
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
+
   # GET /emerges
   # GET /emerges.xml
   def index

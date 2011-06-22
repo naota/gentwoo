@@ -11,6 +11,7 @@ Gentwoo::Application.routes.draw do
 
   match 'my/emerges' => 'emerges#my'
   match 'packages/:category/:name' => 'emerges#package'
+  match 'poppackage' => 'emerges#poppackage'
   match 'users/:name' => 'emerges#useremerges'
 
   match 'emerges/:id/:type' => 'emerges#show'
