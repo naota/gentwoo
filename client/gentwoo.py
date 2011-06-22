@@ -85,6 +85,7 @@ if __name__ == "__main__":
         logfile = sys.argv[2]
     else:
         logfile = None
+    if os.fork() != 0: os._exit(0)
     for x in range(10):
         time.sleep(1)
         (beg, end)=searchLog(package)
