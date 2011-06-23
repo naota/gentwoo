@@ -8,17 +8,21 @@ import os
 import re
 import datetime
 import time
+from portage.util import getconfig
 
-url = "http://localhost:3000/emerges"
-user = "naota344"
-token = "c50a5090f305b82ab6a5"
 
-uploadLog = True
-uploadErorrLog = True
-cleanLog = True 
+def loadConfig(configfile):
+    config = getconfig(configfile)
 
-portagelog = "/var/log/emerge.log"
-logparse = 4096
+    for key in config:
+      if config[key].lower == 'true':
+        config[key] = True
+      elif config[key].lower == 'false':
+        config[key] = False
+      elif config[key].isdigit():
+        config[key] = int(config[key])
+
+    return config
 
 def parsePackage(package):
     m = re.match(r'^(.+)/(.+)$', package)
@@ -39,9 +43,9 @@ def sendQuery(package, end, duration, logfile):
                        "package":{"category": category,
                                   "name": name,
                                   "version": version},
-                       "user": user,
-                       "token": token})
-    urlopen(urllib2.Request(url, data, {"Content-Type": "application/json",
+                       "user":  config['USER'],
+                       "token": config['TOKEN']})
+    urlopen(urllib2.Request(config['URL'], data, {"Content-Type": "application/json",
                                         "Accept": "application/json"}))
 
 def sendErrQuery(package, tm, logfile, errfile):
@@ -53,9 +57,9 @@ def sendErrQuery(package, tm, logfile, errfile):
                        "package":{"category": category,
                                   "name": name,
                                   "version": version},
-                       "user": user,
-                       "token": token})
-    urlopen(urllib2.Request(url, data, {"Content-Type": "application/json",
+                       "user":  config['USER'],
+                       "token": config['TOKEN']})
+    urlopen(urllib2.Request(config['URL'], data, {"Content-Type": "application/json",
                                         "Accept": "application/json"}))
 
 def searchLog(package):
@@ -63,8 +67,8 @@ def searchLog(package):
     regEnd = re.compile(r'^(\d+):  ::: completed emerge \(\d+ of \d+\) '+re.escape(package)+' to ')
     begTime = None
     endTime = None
-    with open(portagelog) as plf:
-        plf.seek(-logparse, os.SEEK_END)
+    with open(config['PORTAGE_LOG']) as plf:
+        plf.seek(-config['LOG_PARSE'], os.SEEK_END)
         lines = plf.readlines()
         for l in  reversed(lines[1:]):
             if not endTime:
@@ -81,7 +85,12 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         sys.exit(1)
     package = sys.argv[1]
-    if len(sys.argv) > 2 and uploadLog:
+    
+    config = loadConfig('/etc/gentwoo.conf')
+    if config is None:
+      sys.exit(1)
+
+    if len(sys.argv) > 2 and config['UPLOAD_LOG']:
         logfile = sys.argv[2]
     else:
         logfile = None
@@ -91,7 +100,7 @@ if __name__ == "__main__":
         (beg, end)=searchLog(package)
         if beg and end: break
     if not beg or not end: 
-        if not logfile or not uploadErorrLog:
+        if not logfile or not config['UPLOAD_ERROR_LOG']:
             sys.exit(0)
         with open(logfile) as plf:
             error = False
@@ -102,10 +111,10 @@ if __name__ == "__main__":
                     if m:
                         tm = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
                         sendErrQuery(package, tm, logfile, m.group(1))
-                        if cleanLog: os.remove(logfile)
+                        if config['CLEAN_LOG']: os.remove(logfile)
                         sys.exit(0)
                 else:
                     if l.startswith("ERROR: "): error=True
         sys.exit(0)
     sendQuery(package, end, end-beg, logfile)
-    if logfile and cleanLog: os.remove(logfile)
+    if logfile and config['CLEAN_LOG']: os.remove(logfile)
