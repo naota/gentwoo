@@ -5,19 +5,20 @@
 <h3>使い方</h3>
 <ol>
   <li><a href="download/gentwoo.py">クライアントスクリプト</a>をダウンロードします。</li>
+  <li><a href="download/gentwoo.conf">クライアントスクリプト設定ファイル</a>をダウンロードし、/etc/gentwoo.confにおきます。</li>
   <li>クライアントスクリプトの実行に必要なものをemergeします。
     <ul>
       <li>simplejson</li>
     </ul>
   </li>
-  <li>クライアントスクリプトに<a href="my/key">token</a>を設定してください。</li>
-  <li>クライアントスクリプトを設定します。
+  <li>クライアント設定ファイルに<a href="my/key">token</a>を設定してください。</li>
+  <li>クライアントを設定します。
     <ul>
-      <li>user: Twitter のログインIDです</li>
-      <li>token: 上にあるtokenを設定します。</li>
-      <li>uploadLog: emergeの簡単なログをアップロードするかどうかです。(True または False)</li>
-      <li>uploadErrorLog: emergeがエラーになった時に完全なエラーログをアップロードするかどうかです。(True または False)</li>
-      <li>cleanLog: emergeの簡単なログを削除するかどうかです。(True または False)</li>
+      <li>USER: Twitter のログインIDです</li>
+      <li>TOKEN: 上にあるtokenを設定します。</li>
+      <li>UPLOAD_LOG: emergeの簡単なログをアップロードするかどうかです。(True または False)</li>
+      <li>UPLOAG_ERROR_LOG: emergeがエラーになった時に完全なエラーログをアップロードするかどうかです。(True または False)</li>
+      <li>CLEAN_LOG: emergeの簡単なログを削除するかどうかです。(True または False)</li>
     </ul>
   </li>
   <li>スクリプトが起動されるようにPortage(/etc/make.conf)を設定します。 たとえばこのようにします。
