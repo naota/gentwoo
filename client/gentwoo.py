@@ -81,20 +81,25 @@ def searchLog(package):
                 break
     return (begTime, endTime)
 
-if __name__ == "__main__":
+def loadArgument():
     if len(sys.argv) < 2:
+        return (None, None)
+    elif len(sys.argv) > 2 and config['UPLOAD_LOG']:
+        return (sys.argv[1], sys.argv[2])
+    else:
+        return (sys.argv[1], None)
+
+if __name__ == "__main__":
+    (package, logfile) = loadArgument
+    if package is None:
         sys.exit(1)
-    package = sys.argv[1]
-    
+
     config = loadConfig('/etc/gentwoo.conf')
     if config is None:
       sys.exit(1)
 
-    if len(sys.argv) > 2 and config['UPLOAD_LOG']:
-        logfile = sys.argv[2]
-    else:
-        logfile = None
     if os.fork() != 0: os._exit(0)
+
     for x in range(10):
         time.sleep(1)
         (beg, end)=searchLog(package)
