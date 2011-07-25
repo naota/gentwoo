@@ -141,6 +141,7 @@ class EmergesController < ApplicationController
   # POST /emerges
   # POST /emerges.xml
   def create
+    error = "Unknown error."
     @user = User.find_by_login(params[:user])
     @emerge = nil
     if @user.sitekey and @user.sitekey == params[:token]
@@ -148,6 +149,8 @@ class EmergesController < ApplicationController
       @emerge = @user.emerges.build(params[:emerge])
       @emerge.package = @package
       @emerge.tobe_tweet = @user.delay_emerge_tweet
+    else
+      error = "Invalid key. Check your configuration."
     end
     
     respond_to do |format|
@@ -165,13 +168,19 @@ class EmergesController < ApplicationController
           end
         end
         format.xml  { render :xml => @emerge, :status => :created, :location => @emerge }
-        format.json  { render :json => @emerge, :status => :created, :location => @emerge }
+        format.json  {
+          render :json => {"result" => "OK", "info" => ""}.to_json(),
+            :status => :created, :location => @emerge }
       elsif @emerge
         format.xml  { render :xml => @emerge.errors, :status => :unprocessable_entity }
-        format.json  { render :json => @emerge.errors, :status => :unprocessable_entity }
+        format.json  {
+          render :json => {"result" => "ERROR", "info" => @emerge.errors}.to_json(),
+            :status => :created, :location => @emerge }
       else
         format.xml  { render :xml => "", :status => :unprocessable_entity }
-        format.json  { render :json => "", :status => :unprocessable_entity }
+        format.json  { 
+          render :json => {"result" => "ERROR", "info" => error}.to_json(),
+            :status => :created, :location => @emerge }
       end
     end
   end
