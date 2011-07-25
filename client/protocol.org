@@ -1,12 +1,19 @@
-* POST /emerges
-  json で以下の情報を送信する
+* protocol version 1
+** POST /emerges
+   json で以下の情報を送信する
 
-  | emerge  | duration  | emerge 経過時間 (失敗なら0)         |
-  |         | buildtime | emerge 終了時刻                     |
-  |         | log       | emerge log                          |
-  |         | errorlog  | build.log                           |
-  | package | category  |                                     |
-  |         | name      |                                     |
-  |         | version   |                                     |
-  | user    |           | Twitter screen_name                 |
-  | token   |           | GenTwoo webサイトで発行される token |
+   | emerge  | duration  | emerge 経過時間 (失敗なら0)         |
+   |         | buildtime | emerge 終了時刻                     |
+   |         | log       | emerge log                          |
+   |         | errorlog  | build.log                           |
+   | package | category  |                                     |
+   |         | name      |                                     |
+   |         | version   |                                     |
+   | user    |           | Twitter screen_name                 |
+   | token   |           | GenTwoo webサイトで発行される token |
+   | version |           | プロトコルバージョン                |
+
+** 結果
+
+   | result | OK もしくは ERROR |
+   | info   | くわしい情報      |
