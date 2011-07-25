@@ -10,6 +10,64 @@ import datetime
 import time
 from portage.util import getconfig
 
+class Query:
+    def __init__(self, config, package, begin, end, logfile):
+        self.config = config
+        self.package = package
+        self.beginTime = begin
+        self.endTime = end
+        self.logfile = logfile
+    def getErrorLog(self):
+        if not self.logfile: return None
+        if not self.config['UPLOAD_ERROR_LOG']: return None
+        with open(self.logfile) as plf:
+            error = False
+            reglogfile=re.compile(r"^The complete build log is located at '(.+)'.$")
+            for l in plf:
+                if error:
+                    m = reglogfile.match(l)
+                    if not m: continue
+                    return m.group(1)
+                elif l.startswith("ERROR: "): error=True
+        return None
+    def queryData(self):
+        protocolVersion = "1"
+        (category, name, version) = parsePackage(self.package)
+        error = not (self.beginTime and self.endTime)
+        (log, errorlog) = ('', '')
+
+        if self.endTime:
+            buildtime = convTime(self.endTime)
+        else:
+            buildtime = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+
+        if self.logfile: log = open(self.logfile).read()
+        if error:
+            duration = 0
+            errorlogfile = self.getErrorLog()
+            if errorlogfile: errorlog = open(errorlogfile).read()
+        else:
+            duration = self.endTime - self.beginTime
+
+        return {"emerge": {"duration": duration,
+                           "buildtime": buildtime,
+                           "log": log,
+                           "errorlog": errorlog},
+                "package":{"category": category,
+                           "name": name,
+                           "version": version},
+                "user":  self.config['USER'],
+                "token": self.config['TOKEN'],
+                "version": protocolVersion}
+    def send(self):
+        data = json.dumps(self.queryData())
+        f = urlopen(urllib2.Request(self.config['URL'],
+                                    data, {"Content-Type": "application/json",
+                                           "Accept": "application/json"}))
+        result = json.loads(f.read())
+        ret = result['result']
+        info = result['info']
+        return (ret, info)
 
 def loadConfig(configfile):
     config = getconfig(configfile)
@@ -33,36 +91,7 @@ def parsePackage(package):
 def convTime(tm):
     return datetime.datetime.utcfromtimestamp(tm).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-def sendQuery(package, end, duration, logfile):
-    (category, name, version) = parsePackage(package)
-    log = ""
-    if logfile: log = open(logfile).read()
-    data = json.dumps({"emerge": {"duration": duration,
-                                  "buildtime": convTime(end),
-                                  "log": log, "errorlog": ""},
-                       "package":{"category": category,
-                                  "name": name,
-                                  "version": version},
-                       "user":  config['USER'],
-                       "token": config['TOKEN']})
-    urlopen(urllib2.Request(config['URL'], data, {"Content-Type": "application/json",
-                                        "Accept": "application/json"}))
-
-def sendErrQuery(package, tm, logfile, errfile):
-    (category, name, version) = parsePackage(package)
-    data = json.dumps({"emerge": {"duration": 0,
-                                  "buildtime": tm,
-                                  "log": open(logfile).read(),
-                                  "errorlog": open(errfile).read()},
-                       "package":{"category": category,
-                                  "name": name,
-                                  "version": version},
-                       "user":  config['USER'],
-                       "token": config['TOKEN']})
-    urlopen(urllib2.Request(config['URL'], data, {"Content-Type": "application/json",
-                                        "Accept": "application/json"}))
-
-def searchLog(package):
+def searchLog(package, config):
     regBeg = re.compile(r'^(\d+):  >>> emerge \(\d+ of \d+\) '+re.escape(package)+' to ')
     regEnd = re.compile(r'^(\d+):  ::: completed emerge \(\d+ of \d+\) '+re.escape(package)+' to ')
     begTime = None
@@ -81,7 +110,7 @@ def searchLog(package):
                 break
     return (begTime, endTime)
 
-def loadArgument():
+def loadArgument(config):
     if len(sys.argv) < 2:
         return (None, None)
     elif len(sys.argv) > 2 and config['UPLOAD_LOG']:
@@ -89,37 +118,27 @@ def loadArgument():
     else:
         return (sys.argv[1], None)
 
-if __name__ == "__main__":
-    (package, logfile) = loadArgument
-    if package is None:
-        sys.exit(1)
+def trySearchLog(package, config):
+    for x in range(10):
+        time.sleep(1)
+        (beg, end)=searchLog(package, config)
+        if beg and end: return (beg, end)
+    return (None, None)
 
+if __name__ == "__main__":
     config = loadConfig('/etc/gentwoo.conf')
     if config is None:
       sys.exit(1)
 
+    (package, logfile) = loadArgument(config)
+    if package is None:
+        sys.exit(1)
+
     if os.fork() != 0: os._exit(0)
 
-    for x in range(10):
-        time.sleep(1)
-        (beg, end)=searchLog(package)
-        if beg and end: break
-    if not beg or not end: 
-        if not logfile or not config['UPLOAD_ERROR_LOG']:
-            sys.exit(0)
-        with open(logfile) as plf:
-            error = False
-            reglogfile=re.compile(r"^The complete build log is located at '(.+)'.$")
-            for l in plf:
-                if error:
-                    m = reglogfile.match(l)
-                    if m:
-                        tm = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
-                        sendErrQuery(package, tm, logfile, m.group(1))
-                        if config['CLEAN_LOG']: os.remove(logfile)
-                        sys.exit(0)
-                else:
-                    if l.startswith("ERROR: "): error=True
-        sys.exit(0)
-    sendQuery(package, end, end-beg, logfile)
-    if logfile and config['CLEAN_LOG']: os.remove(logfile)
+    (begin, end) = trySearchLog(package, config)
+    query = Query(config, package, begin, end, logfile)
+    (result, info) = query.send()
+    if info !='': print "Message from GenTwoo server: %s" % info
+    if logfile and config['CLEAN_LOG']:
+        os.remove(logfile)
