@@ -153,6 +153,11 @@ class EmergesController < ApplicationController
       error = "Invalid key. Check your configuration."
     end
     
+    if @emerge and @emerge.buildtime > 30.minutes.since
+      @emerge = nil
+      error = "Your clock stay in the feature!"
+    end
+
     respond_to do |format|
       if @emerge and @emerge.save
         if @user.tweet_emerged
@@ -180,7 +185,7 @@ class EmergesController < ApplicationController
         format.xml  { render :xml => "", :status => :unprocessable_entity }
         format.json  { 
           render :json => {"result" => "ERROR", "info" => error}.to_json(),
-            :status => :created, :location => @emerge }
+            :status => :created }
       end
     end
   end
