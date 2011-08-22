@@ -38,6 +38,7 @@ class User < TwitterAuth::GenericUser
   def delayEmergeTweetTxts
     emerges_succ = self.emerges.where("tobe_tweet = ? AND duration <> 0", true).order("buildtime desc")
     emerges_failed = self.emerges.where("tobe_tweet = ? AND duration = 0", true).order("buildtime desc")
+    emerges_succ_back = emerges_succ.dup
 
     return [] if emerges_succ.length + emerges_failed.length == 0
 
@@ -66,7 +67,7 @@ class User < TwitterAuth::GenericUser
     end
 
     if succ_txt.split(//u).length > limit
-      emerges_succ = self.emerges.where("tobe_tweet = ? AND duration <> 0", true)
+      emerges_succ = emerges_succ_back
       succ_time = pretty_duration(emerges_succ.collect{|e| e.duration}.sum)
       succ_txt = toLimitedEmergesList(emerges_succ, 140 - foot.length,
                                       "をemergeしました。(のべ"+succ_time+")",
