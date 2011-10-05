@@ -97,7 +97,10 @@ def searchLog(package, config):
     begTime = None
     endTime = None
     with open(config['PORTAGE_LOG']) as plf:
-        plf.seek(-config['LOG_PARSE'], os.SEEK_END)
+        try:
+            plf.seek(-config['LOG_PARSE'], os.SEEK_END)
+        except IOError:
+            plf.seek(0, os.SEEK_SET)
         lines = plf.readlines()
         for l in  reversed(lines[1:]):
             if not endTime:
