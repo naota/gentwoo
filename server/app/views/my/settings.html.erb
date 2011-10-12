@@ -1,10 +1,23 @@
+<script src="http://cdn.jquerytools.org/1.2.6/form/jquery.tools.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/stylesheets/rangeinput.css"/>
+
 <%= form_for @user, {:url => "/my/savesettings"} do |f| %>
-<div class="field">
-  emergeした時につぶやく: <%= f.check_box :tweet_emerged %><br />
-  emergeをまとめてつぶやく: <%= f.check_box :delay_emerge_tweet %><br />
+<div class="field" style="margin: 5px">
   コメントした時につぶやく: <%= f.check_box :tweet_comment %><br />
+  emergeした時につぶやく: <%= f.check_box :tweet_emerged %><br />
+  emergeをつぶやく間隔 (分): <br />
+  <div style="margin: 5px">
+    <%= f.range_field :tweet_interval, :in => 0..1440, :step => 10,
+        :disabled => !@user.tweet_emerged  %>
+  </div>
+  <br clear="all" />
 </div>
 <div class="actions">
   <%= f.submit %>
 </div>
 <% end %>
+
+<script>
+$(":range").rangeinput();
+$("#user_tweet_emerged").change(function() { $("#user_tweet_interval").attr("disabled", !($(this).is(":checked")) )});
+</script>

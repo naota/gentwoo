@@ -81,17 +81,25 @@ class User < TwitterAuth::GenericUser
   end
 
   def delayEmergeTweet(tweet = true)
-    self.delayEmergeTweetTxts.each do |txt|
-      if tweet
-        begin
-          self.twitter.post('/statuses/update.json', :status => txt)
-        rescue TwitterAuth::Dispatcher::Error => e
-          p e
+    return unless self.tweet_emerged
+    if self.last_tweet == nil or self.tweet_interval.minutes.since(self.last_tweet) < Time.now
+      self.delayEmergeTweetTxts.each do |txt|
+        if tweet
+          begin
+            self.twitter.post('/statuses/update.json', :status => txt)
+            self.emerges.update_all ["tobe_tweet = ?", false], ["tobe_tweet = ?", true]
+            self.last_tweet = Time.now
+            self.save
+          rescue TwitterAuth::Dispatcher::Error => e
+            p e
+          end
+        else
+          p txt
+          self.emerges.update_all ["tobe_tweet = ?", false], ["tobe_tweet = ?", true]
+          self.last_tweet = Time.now
+          self.save
         end
-      else
-        p txt
       end
     end
-    self.emerges.update_all ["tobe_tweet = ?", false], ["tobe_tweet = ?", true]
   end
 end

@@ -148,7 +148,7 @@ class EmergesController < ApplicationController
       @package = getPackage(params[:package])
       @emerge = @user.emerges.build(params[:emerge])
       @emerge.package = @package
-      @emerge.tobe_tweet = @user.delay_emerge_tweet
+      @emerge.tobe_tweet = @user.tweet_emerged && (@user.tweet_interval != 0)
     else
       error = "Invalid key. Check your configuration."
     end
@@ -173,7 +173,7 @@ class EmergesController < ApplicationController
     respond_to do |format|
       if @emerge and @emerge.save
         if @user.tweet_emerged
-          unless @user.delay_emerge_tweet
+          if @user.tweet_interval == 0
             stat = @package.fullname + 
               if @emerge.duration == 0
                 "のemergeに失敗しました。"
