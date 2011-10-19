@@ -125,7 +125,7 @@ class EmergesController < ApplicationController
 
   def package
     @pkgs = Package.where(["category = ? AND name = ?",
-                           params[:category], params[:name]])
+                           params[:category], params[:name]]).order("version DESC")
     respond_to do |format|
       format.html
     end
