@@ -77,7 +77,7 @@ class EmergesController < ApplicationController
   # GET /emerges/1
   # GET /emerges/1.xml
   def show
-    @emerge = Emerge.find(params[:id])
+    @emerge = Emerge.unscoped.find(params[:id])
     @comments = @emerge.comments
     if (params[:type] == "ajax")
       @showcomment = false
@@ -92,7 +92,7 @@ class EmergesController < ApplicationController
   end
 
   def ajaxerrorlog
-    @emerge = Emerge.find(params[:id])
+    @emerge = Emerge.unscoped.find(params[:id])
     render :layout => 'ajax'
   end
 

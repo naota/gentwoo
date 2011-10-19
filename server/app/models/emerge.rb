@@ -4,6 +4,8 @@ class Emerge < ActiveRecord::Base
   belongs_to :user
   has_many :comments, :as => :commentable
 
+  default_scope select([:id, :buildtime, :duration, :package_id, :user_id])
+
   def fullname
     self.package.fullname
   end
