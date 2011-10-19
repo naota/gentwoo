@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111001035745) do
+ActiveRecord::Schema.define(:version => 20111019054403) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -32,6 +32,11 @@ ActiveRecord::Schema.define(:version => 20111001035745) do
     t.datetime "updated_at"
     t.boolean  "tobe_tweet", :default => false
   end
+
+  add_index "emerges", ["buildtime", "package_id", "user_id"], :name => "index_emerges_on_buildtime_and_package_id_and_user_id"
+  add_index "emerges", ["buildtime"], :name => "index_emerges_on_buildtime"
+  add_index "emerges", ["package_id"], :name => "index_emerges_on_package_id"
+  add_index "emerges", ["user_id"], :name => "index_emerges_on_user_id"
 
   create_table "packages", :force => true do |t|
     t.string   "category"
