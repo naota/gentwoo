@@ -158,14 +158,16 @@ class EmergesController < ApplicationController
       error = "Your clock stay in the feature!"
     end
 
-    dupcount = Emerge.count(:conditions =>
-                           { :buildtime => @emerge.buildtime,
-                             :duration => @emerge.duration,
-                             :user_id => @emerge.user_id
-                           })
-    if dupcount > 0
-      @emerge = nil
-      error = "Duplicated record"
+    if @emerge
+      dupcount = Emerge.count(:conditions =>
+                              { :buildtime => @emerge.buildtime,
+                                :duration => @emerge.duration,
+                                :user_id => @emerge.user_id
+                              })
+      if dupcount > 0
+        @emerge = nil
+        error = "Duplicated record"
+      end
     end
 
     respond_to do |format|
