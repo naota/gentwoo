@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class User < TwitterAuth::GenericUser
   has_many :emerges
+  has_one :cache_pop_user
 
   def link
     "/users/" + self.login
