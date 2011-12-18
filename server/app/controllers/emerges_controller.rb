@@ -6,17 +6,13 @@ class EmergesController < ApplicationController
     @emerges = Emerge.order("buildtime DESC").limit(10)
     @erremerges = Emerge.where("duration=0").order("buildtime DESC").limit(10)
     @poppkg = Package.find(:all, 
-                           :select => "count(emerges.id) AS cnt, packages.*",
-                           :joins => :emerges,
-                           :conditions => ["buildtime > ?", 7.day.ago],
-                           :group => "package_id",
+                           :select => "cache_pop_packages.cnt AS cnt, packages.*",
+                           :joins => :cache_pop_package,
                            :order => "cnt DESC",
                            :limit => 10)
     @popperson = User.find(:all, 
-                           :select => "count(emerges.id) AS cnt, users.*",
-                           :joins => :emerges,
-                           :conditions => ["buildtime > ?", 7.day.ago],
-                           :group => "user_id",
+                           :select => "cache_pop_users.cnt AS cnt, users.*",
+                           :joins => :cache_pop_user,
                            :order => "cnt DESC",
                            :limit => 5)
     @recentcomments = Comment.order("created_at DESC").limit(5)
