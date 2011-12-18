@@ -1,7 +1,5 @@
-BEGIN TRANSACTION;
-
-DELETE FROM cache_pop_packages;
-DELETE FROM cache_pop_users;
+TRUNCATE TABLE cache_pop_packages;
+TRUNCATE TABLE cache_pop_users;
 
 INSERT INTO cache_pop_packages (cnt, package_id, created_at)
   SELECT count(emerges.id) AS cnt, packages.id, CURRENT_TIMESTAMP FROM packages 
@@ -14,5 +12,3 @@ INSERT INTO cache_pop_users (cnt, user_id, created_at)
   INNER JOIN emerges ON emerges.user_id = users.id
   WHERE (buildtime > date_add(CURRENT_TIMESTAMP, interval -7 day))
   GROUP BY user_id;
-
-COMMIT TRANSACTION;
