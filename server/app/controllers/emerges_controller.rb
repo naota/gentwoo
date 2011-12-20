@@ -26,17 +26,14 @@ class EmergesController < ApplicationController
     page = params[:page].to_i || 0
     page = 0 if page < 0
     @poppkg = Package.find(:all, 
-                           :select => "count(emerges.id) AS cnt, packages.*",
-                           :joins => :emerges,
-                           :conditions => ["buildtime > ?", 7.day.ago],
-                           :group => "package_id",
+                           :select => "cache_pop_packages.cnt AS cnt, packages.*",
+                           :joins => :cache_pop_package,
                            :order => "cnt DESC",
                            :limit => perpage,
                            :offset => page*perpage)
     count = Package.find(:all,
                          :select => "DISTINCT package_id",
-                         :joins => :emerges,
-                         :conditions => ["buildtime > ?", 7.day.ago]).count()
+                         :joins => :cache_pop_package).count()
     @prevpage = page - 1
     @nextpage = page + 1
 
