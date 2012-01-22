@@ -1,5 +1,6 @@
 Gentwoo::Application.routes.draw do
   match 'emerges/ajaxerrorlog/:id' => 'emerges#ajaxerrorlog'
+  match 'users/:name' => 'emerges#useremerges'
 
   resources :emerges do
     resources :comments
@@ -14,7 +15,6 @@ Gentwoo::Application.routes.draw do
   match 'my/emerges' => 'emerges#my'
   match 'packages/:category/:name' => 'emerges#package'
   match 'poppackage' => 'emerges#poppackage'
-  match 'users/:name' => 'emerges#useremerges'
 
   match 'emerges/:id/:type' => 'emerges#show'
 
