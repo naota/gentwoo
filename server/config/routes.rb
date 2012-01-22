@@ -4,6 +4,8 @@ Gentwoo::Application.routes.draw do
   resources :emerges do
     resources :comments
   end
+  resources :packages, :users
+
   match 'my' => 'my#index'
   match 'my/key' => 'my#key'
   match 'my/settings' => 'my#settings'

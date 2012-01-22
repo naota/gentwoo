@@ -1,5 +1,65 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+   day: days
+   hour: hours
+   minute: minutes
+   second: seconds
+   no_success: No one has emerge'd
+   avg_duration: Average merge time
+   comment_from: "comment by @%{user}"
+   datetime: When
+   duration: merge time
+   useremerged_html: "%{user} "
+   emergefailed_html: "failed to emerge <a href=\"%{link}\">%{pkg}</a>"
+   emergedone_html: "finished to emerge <a href=\"%{link}\">%{pkg}</a>"
+   failed: Failed
+   detail: Detail
+   tonewpage: recent
+   tooldpage: old
+   welcome_user: "Hi, %{user}! How's build going?"
+   recentpop: Recent popular packages
+   times: times
+   more: more
+   popuser: Recent hot emerge users
+   recent_comment: Recent comments
+   rss_html: <a style="float:right" href="/comments.rss"><image alt="Comment RSS" src="/images/feed.png"/></a>
+   loadfailed_html: "\"Failed to load. \""
+   recent_emerge: Recent emerge
+   recent_failedemerge: Recent failed emerge
+   viewin_packages: View in Gentoo Packages
+   toupper_page: More popular
+   tolower_page: Less popular
+   rank: rank
+   user_emerge: "%{user}'s emerge"
+   user_recent_emerge: "Recent %{user}'s emerge"
+   log: log
+   errorlog: error log
+   on_time: "On %{time}"
+   take_duration: "with %{dur}"
+   comment_count: "%{cnt} Comments"
+   comment: comment
+   write_comment: Post a comment
+   login_towrite_html: <a href="/login">Please login with Twitter</a>to post a comment
+   all_emerge: All emerge
+   mypage: My page(Howto)
+   settings: settings
+   logout: logout
+   login: login
+   start_gentwoo_html: Why don't you start Social Compile with GenTwoo? Sign up today with <a href="/login">Twitter</a>
+   author: Author
+   user_mypage: "%{user}'s mypage"
+   view_myemerge: View my emerge
+   howto: Howto
+   add_overlay_html: "Add betagarden overlay. Read <a href=\"http://www.gentoo.org/proj/en/overlays/userguide.xml\">Gentoo Overlays: Users' Guide</a> if you don't know about overlay"
+   emerge_gentwoo: emerge gentwoo and the script and config file get installed.
+   edit_token_html: "Edit config file (/etc/gentwoo.conf) to set <a href=\"my/key\">token</a>."
+   config_client: Configure the client.
+   user_desc: Your Twitter login ID.
+   token_desc: Set the token above.
+   uploadlog_desc: Upload emerge summary log or not. (True or False)
+   upload_error_desc: Upload emerge full build log when it get failed or not. (True or False)
+   portage_setting: Edit /etc/make.conf to invoke the script. E.g.
+   custom_haserror: Be sure to have "error" for "custom" log level.
+   justcompile: ... and just start emerge!!
+   tweet_oncomment: Tweet when you post a comment.
+   tweet_onemerge: Tweet when you emerge.
+   tweet_interval: Emerge tweet interval (minutes)

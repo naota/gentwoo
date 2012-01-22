@@ -7,6 +7,6 @@ class Package < ActiveRecord::Base
     category + "/" + name + "-" + version
   end
   def page
-    "/packages/" + category + "/" + name + "/#" + version
+    "/packages/" + category + "/" + name + "/?locale="+I18n.locale.to_s+"#" + version
   end
 end

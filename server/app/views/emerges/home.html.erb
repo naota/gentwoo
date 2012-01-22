@@ -1,15 +1,14 @@
 <%- if current_user -%>    
 <p>
-  ようこそ<%= current_user.name =%>さん! 今日もコンパイルしてますか!?</br>
-  <a "/my/settings">まとめてつぶやく機能</a>が追加されました。設定してみてはいかがですか?
+  <%= t(:welcome_user, :user => current_user.name) %>
 </p>
 <% end %>
 
 <div id="topheader">
   <div style="float:left; width: 30%;">
-    <h3>最近人気のpackage</h3>
+    <h3><%= t(:recentpop) %></h3>
     <table>
-      <tr><td>回数</td><td>package</td></tr>
+      <tr><td><%= t(:times) %></td><td>package</td></tr>
       <% @poppkg.each do |pkg| %>
       <tr>
 	<td><%= pkg.cnt %></td>
@@ -17,19 +16,19 @@
       </tr>
       <% end %>
     </table>
-    <a href="/poppackage">もっと見る ...</a>
+    <%= link_to t(:more), url_for(:poppackage) %>
   </div>
 
   <div style="float:left; width: 20%;">
-    <h3>最近よくemergeしている人</h3>
+    <h3><%= t(:popuser) %></h3>
     <table>
-      <tr><td>回数</td><td></td></tr>
+      <tr><td><%= t(:times) %></td><td></td></tr>
       <% @popperson.each do |p| %>
       <tr>
 	<td><%= p.cnt %></td>
 	<td>
 	  <img src="<%= p.profile_image_url %>" style="vertical-align: middle" />
-	  <%= link_to p.name, p.link %>
+	  <%= link_to p.name, p %>
 	</td>
       </tr>
       <% end %>
@@ -37,7 +36,7 @@
   </div>
 
   <div style="float:left; width: 30%;">
-    <h3>最近のコメント</h3>
+    <h3><%= t(:recent_comment)%></h3>
     <table>
       <% @recentcomments.each do |comment| %>
       <tr>
@@ -55,12 +54,14 @@
       </tr>
       <tr>
 	<td colspan="2">
-	  <%= link_to comment.content, comment.page %>
+	  <%= link_to (comment.content,
+	      url_for(comment.commentable)+
+	              "#comment_" + comment.id.to_s) %>
 	</td>
       </tr>
       <% end %>
     </table>
-    <a style="float:right" href="/comments.rss"><image alt="コメントRSS" src="/images/feed.png"/></a>    
+    <%= t(:rss_html) %>
   </div>
 
   <div style="float:left; width: 9%;">
@@ -106,7 +107,7 @@ new TWTR.Widget({
       ajaxOptions: {
         error: function( xhr, status, index, anchor ) {
           $( anchor.hash ).html(
-            "読みこみに失敗しました。 ");
+            <%= t(:loadfailed_html) %> );
         }
       }
     });
@@ -118,14 +119,14 @@ new TWTR.Widget({
 <div style="margin-top: 30px">
   <div id="tabs" style="">
     <ul>
-      <li><a href="#tabs-1">最近のemerge</a></li>
-      <li><a href="#tabs-2">最近のエラーが出たemerge</a></li>
+      <li><a href="#tabs-1"><%=t(:recent_emerge)%></a></li>
+      <li><a href="#tabs-2"><%=t(:recent_failedemerge)%></a></li>
     </ul>
     <div id="tabs-1">
       <%= render(:partial => "emerges",
       :object => @emerges,
       :locals => {:needuser => true}) %>
-      <a href="emerges/">もっと見る ...</a>
+      <%= link_to t(:more), url_for(:emerges) %>
     </div>
     <div id="tabs-2">
       <%= render(:partial => "emerges",

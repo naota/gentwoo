@@ -1,16 +1,16 @@
 <div >
-  <h2>最近人気のpackage</h2>
+  <h2><%=t(:recentpop)%></h2>
   <div style="text-align:right">
     <%- if @prevpage -%>
-    <a href="/poppackage?page=<%= @prevpage %>">もっと上</a>
+    <%= link_to t(:toupper_page), url_for(:poppackage, page => @prevpage) %>
     <%- end -%>
     <%- if @nextpage -%>
-    <a href="/poppackage?page=<%= @nextpage %>">もっと下</a>
+    <%= link_to t(:tolower_page), url_for(:poppackage, page => @nextpage) %>
     <%- end -%>
   </div>
 
   <table>
-    <tr><td>順位</td><td>回数</td><td>package</td></tr>
+    <tr><td><%=t(:rank)%></td><td><%=t(:times)%></td><td>package</td></tr>
     <% @poppkg.each_with_index do |pkg, i| %>
     <tr>
       <td><%= @basecount+i+1 =%></td>
@@ -22,10 +22,10 @@
 
   <div style="text-align:right">
     <%- if @prevpage -%>
-    <a href="/poppackage?page=<%= @prevpage %>">もっと上</a>
+    <%= link_to t(:toupper_page), url_for(:poppackage, page => @prevpage) %>
     <%- end -%>
     <%- if @nextpage -%>
-    <a href="/poppackage?page=<%= @nextpage %>">もっと下</a>
+    <%= link_to t(:tolower_page), url_for(:poppackage, page => @nextpage) %>
     <%- end -%>
   </div>
 </div>

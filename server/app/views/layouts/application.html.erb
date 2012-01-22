@@ -17,23 +17,26 @@
 
 <div style="margin: 0 auto; width: 80%">
 <h1>GenTwoo: Socilal Compiling</h1>
-
+<div id="locales">
+<%= link_to "English", "?locale=en" %>
+<%= link_to "日本語", "?locale=ja" %>
+</div>
 <div>
   <ul id="menu" class="blue">
-    <li><a href="/">Dashboard</a></li>
-    <li><a href="/emerges">全てのemerge</a></li>
+    <li><%= link_to "Dashboard", root_url %>
+    <li><%= link_to t(:all_emerge), url_for(:emerges) %></li>
     <%- if current_user -%>
-    <li><a href="/my">マイページ(使い方)</a></li>
-    <li><a href="/my/settings">設定</a></li>
-    <li><a href="/logout">ログアウト</a></li>
+    <li><%= link_to t(:mypage), url_for(:my) %></li>
+    <li><%= link_to t(:settings), url_for(:my_settings) %></li>
+    <li><%= link_to t(:logout), url_for(:logout) %></li>
     <%- else -%>
-    <li><a href="/login">ログイン</a></li>
+    <li><%= link_to t(:login), url_for(:login) %></li>
     <%- end -%>
   </ul>
   <div>
     <%- if current_user -%>    
     <%- else -%>
-    あなたもGenTwooでSocial Compileを始めませんか? 今すぐ<a href="/login">Twitterでログイン</a>
+    <%=t(:start_gentwoo_html)%>
     <%- end -%>
   </div>
 </div>
@@ -43,7 +46,7 @@
 
 <hr>
 <div>
-  作った人: <a href="http://twitter.com/naota344">@naota344</a>
+  <%=t(:author)%>: <a href="http://twitter.com/naota344">@naota344</a>
 </div>
 </body>
 </html>

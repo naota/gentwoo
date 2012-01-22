@@ -1,0 +1,65 @@
+ja:
+   day: 日
+   hour: 時間
+   minute: 分
+   second: 秒
+   no_success: 成功例なし
+   avg_duration: 平均所要時間
+   comment_from: "@%{user}のコメント"
+   datetime: 日時
+   duration: 所要時間
+   useremerged_html: "%{user}さんが"
+   emergefailed_html: "<a href=\"%{link}\">%{pkg}</a>のemergeに失敗しました。"
+   emergedone_html: "<a href=\"%{link}\">%{pkg}</a>をemergeしました。"
+   failed: 失敗
+   detail: 詳細
+   tonewpage: もっと最近
+   tooldpage: もっと昔
+   welcome_user: "ようこそ%{user}さん! 今日もコンパイルしてますか!?"
+   recentpop: 最近人気のpackage
+   times: 回数
+   more: もっと見る
+   popuser: 最近よくemergeしている人
+   recent_comment: 最近のコメント
+   rss_html: <a style="float:right" href="/comments.rss"><image alt="コメントRSS" src="/images/feed.png"/></a>
+   loadfailed_html: "\"読みこみに失敗しました。 \""
+   recent_emerge: 最近のemerge
+   recent_failedemerge: 最近のエラーが出たemerge
+   viewin_packages: Gentoo Packagesで見る
+   toupper_page: もっと上
+   tolower_page: もっと下
+   rank: 順位
+   user_emerge: "%{user}のemerge"
+   user_recent_emerge: "最近の%{user}のemerge"
+   log: ログ
+   errorlog: エラーログ
+   on_time: "%{time}に"
+   take_duration: "%{dur}で"
+   comment_count: "コメント (%{cnt}件)"
+   comment: コメント
+   write_comment: コメントを書く
+   login_towrite_html: コメントを書くには<a href="/login">Twitterでログイン</a>してください。
+   all_emerge: 全てのemerge
+   mypage: マイページ(使い方)
+   settings: 設定
+   logout: ログアウト
+   login: ログイン
+   start_gentwoo_html: あなたもGenTwooでSocial Compileを始めませんか? 今すぐ<a href="/login">Twitterでログイン</a>
+   author: 作った人
+   user_mypage: "%{user}のマイページ"
+   view_myemerge: 自分のemergeを見る
+   howto: 使い方
+   add_overlay_html: "betagarden overlayを追加します。overlayについてわからなければ<a href=\"http://www.gentoo.org/proj/ja/overlays/userguide.xml\">Gentoo Overlay: ユーザーズ・ガイド</a>を参照してください。"
+   emerge_gentwoo: emerge gentwooしてください。スクリプトと設定ファイルがインストールされます。
+   edit_token_html: "設定ファイル(/etc/gentwoo.conf)に<a href=\"my/key\">token</a>を設定してください。"
+   config_client: クライアントを設定します。
+   user_desc: Twitter のログインIDです
+   token_desc: 上にあるtokenを設定します。
+   uploadlog_desc: emergeの簡単なログをアップロードするかどうかです。(True または False)
+   upload_error_desc: emergeがエラーになった時に完全なエラーログをアップロードするかどうかです。(True または False)
+   portage_setting: スクリプトが起動されるようにPortage(/etc/make.conf)を設定します。 たとえばこのようにします。
+   custom_haserror: とりあえず customに errorがいけば大丈夫…なはず。
+   justcompile: あとはコンパイルするだけ!!
+   tweet_oncomment: コメントした時につぶやく
+   tweet_onemerge: emergeした時につぶやく
+   tweet_interval: emergeをつぶやく間隔 (分)

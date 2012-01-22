@@ -12,7 +12,7 @@ xml.rss("version"    => "2.0",
  
     @entries.each do |entry|
       xml.item do
-        xml.title        "@"+entry.user.login+"のコメント"
+        xml.title        t(:comment_from, :user => entry.user.login)
         xml.link         "http://gentwoo.elisp.net"+emerge_path(entry.commentable)
         xml.guid         "http://gentwoo.elisp.net"+emerge_path(entry.commentable)
         xml.description  entry.commentable.fullname+": "+entry.content

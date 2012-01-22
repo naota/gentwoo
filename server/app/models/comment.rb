@@ -3,6 +3,6 @@ class Comment < ActiveRecord::Base
   belongs_to :commentable, :polymorphic => true
 
   def page
-    self.commentable.page + "#comment_" + self.id.to_s
+    url_for(self.commentable, :anchor => "comment_" + self.id.to_s)
   end
 end

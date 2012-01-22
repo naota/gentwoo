@@ -1,9 +1,9 @@
 <div style="text-align:right">
 <%- if prevpage -%>
-<a href="?page=<%= prevpage %>">もっと最近</a>
+<%= link_to t(:tonewpage), url_for(:page => prevpage)%>
 <%- end -%>
 <%- if nextpage -%>
-<a href="?page=<%= nextpage %>">もっと昔</a>
+<%= link_to t(:tooldpage), url_for(:page => nextpage)%>
 <%- end -%>
 </div>
 

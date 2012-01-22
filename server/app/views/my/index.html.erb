@@ -1,34 +1,26 @@
-<h2><%= @user.name %>のマイページ</h2>
+<h2><%= t(:user_mypage, :user => @user.name) %></h2>
 
-<a href="my/emerges">自分のemergeを見る</a>
+<%= link_to t(:view_myemerge), url_for(:my_emerges) %>
 
-<h3>使い方</h3>
+<h3><%=t(:howto)%></h3>
 <ol>
-  <li><a href="download/gentwoo.py">クライアントスクリプト</a>をダウンロードします。</li>
-  <li><a href="download/gentwoo.conf">クライアントスクリプト設定ファイル</a>をダウンロードし、/etc/gentwoo.confにおきます。</li>
-  <li>クライアントスクリプトの実行に必要なものをemergeします。
+  <li><%= t(:add_overlay_html) %></li>
+  <li><%= t(:emerge_gentwoo)%></li>
+  <li><%= t(:edit_token_html)%></li>
+  <li><%= t(:config_client)%>
     <ul>
-      <li>simplejson</li>
+      <li>USER: <%= t(:user_desc)%></li>
+      <li>TOKEN: <%= t(:token_desc)%></li>
+      <li>UPLOAD_LOG: <%= t(:uploadlog_desc)%></li>
+      <li>UPLOAG_ERROR_LOG: <%= t(:upload_error_desc)%></li>
     </ul>
   </li>
-  <li>クライアント設定ファイルに<a href="my/key">token</a>を設定してください。</li>
-  <li>クライアントを設定します。
-    <ul>
-      <li>USER: Twitter のログインIDです</li>
-      <li>TOKEN: 上にあるtokenを設定します。</li>
-      <li>UPLOAD_LOG: emergeの簡単なログをアップロードするかどうかです。(True または False)</li>
-      <li>UPLOAG_ERROR_LOG: emergeがエラーになった時に完全なエラーログをアップロードするかどうかです。(True または False)</li>
-      <li>CLEAN_LOG: emergeの簡単なログを削除するかどうかです。(True または False)</li>
-    </ul>
-  </li>
-  <li>スクリプトが起動されるようにPortage(/etc/make.conf)を設定します。 たとえばこのようにします。
+  <li><%= t(:portage_setting) %>
     <ul>
       <li>PORTAGE_ELOG_CLASSES="log warn error qa"</li>
       <li>PORTAGE_ELOG_SYSTEM="custom:* echo mail"</li>
-      <li>PORTAGE_ELOG_COMMAND="/home/naota/bin/gentwoo.py '${PACKAGE}' '${LOGFILE}'"</li>
+      <li>PORTAGE_ELOG_COMMAND="/usr/bin/gentwoo '${PACKAGE}' '${LOGFILE}'"</li>
     </ul>
-    とりあえず customに errorがいけば大丈夫…なはず。
   </li>
-  <li>あとはコンパイルするだけ!!</li>
-  <li>Just do it!</li>
+  <li><%= t(:justcompile) %></li>
 </ol>

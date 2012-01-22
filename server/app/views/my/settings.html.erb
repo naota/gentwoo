@@ -3,9 +3,9 @@
 
 <%= form_for @user, {:url => "/my/savesettings"} do |f| %>
 <div class="field" style="margin: 5px">
-  コメントした時につぶやく: <%= f.check_box :tweet_comment %><br />
-  emergeした時につぶやく: <%= f.check_box :tweet_emerged %><br />
-  emergeをつぶやく間隔 (分): <br />
+  <%= t(:tweet_oncomment)%>: <%= f.check_box :tweet_comment %><br />
+  <%= t(:tweet_onemerge)%>: <%= f.check_box :tweet_emerged %><br />
+  <%= t(:tweet_interval)%>: <br />
   <div style="margin: 5px">
     <%= f.range_field :tweet_interval, :in => 0..1440, :step => 10,
         :disabled => !@user.tweet_emerged  %>
