@@ -2,10 +2,10 @@
   <h2><%=t(:recentpop)%></h2>
   <div style="text-align:right">
     <%- if @prevpage -%>
-    <%= link_to t(:toupper_page), url_for(:poppackage, page => @prevpage) %>
+    <%= link_to t(:toupper_page, :page => @prevpage), url_for(:poppackage) %>
     <%- end -%>
     <%- if @nextpage -%>
-    <%= link_to t(:tolower_page), url_for(:poppackage, page => @nextpage) %>
+    <%= link_to t(:tolower_page, :page => @prevpage), url_for(:poppackage) %>
     <%- end -%>
   </div>
 
@@ -22,10 +22,10 @@
 
   <div style="text-align:right">
     <%- if @prevpage -%>
-    <%= link_to t(:toupper_page), url_for(:poppackage, page => @prevpage) %>
+    <%= link_to t(:toupper_page, :page => @prevpage), url_for(:poppackage) %>
     <%- end -%>
     <%- if @nextpage -%>
-    <%= link_to t(:tolower_page), url_for(:poppackage, page => @nextpage) %>
+    <%= link_to t(:tolower_page, :page => @prevpage), url_for(:poppackage) %>
     <%- end -%>
   </div>
 </div>
