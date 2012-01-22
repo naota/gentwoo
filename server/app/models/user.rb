@@ -42,7 +42,7 @@ class User < TwitterAuth::GenericUser
 
     return [] if emerges_succ.length + emerges_failed.length == 0
 
-    foot = " http://gentwoo.elisp.net"+self.link+" #GenTwoo"
+    foot = " http://gentwoo.elisp.net/users/"+self.login+" #GenTwoo"
     limit = 140 - foot.length
 
     if emerges_failed.length > 0
