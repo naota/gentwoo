@@ -13,13 +13,13 @@ class User < TwitterAuth::GenericUser
     mins = hours[1].divmod(60)
     
     if days[0] > 0
-      days[0].to_s + t(:day) + hours[0].to_s + t(:hour) + mins[0].to_s + t(:minute)
+      days[0].to_s + "日" + hours[0].to_s + "時間" + mins[0].to_s + "分"
     elsif hours[0] > 0
-      hours[0].to_s + t(:hour) + mins[0].to_s + t(:minute)
+      hours[0].to_s + "時間" + mins[0].to_s + "分"
     elsif mins[0] > 0
-      mins[0].to_s + t(:minute) + mins[1].to_s + t(:second)
+      mins[0].to_s + "分" + mins[1].to_s + "秒"
     else
-      mins[1].to_s + t(:second)
+      mins[1].to_s + "秒"
     end      
   end
 
