@@ -48,7 +48,7 @@ class User < TwitterAuth::GenericUser
     if emerges_failed.length > 0
       failed_txt = toLimitedEmergesList(emerges_failed, limit,
                                         "Failed to emerge ",
-                                        "Failed to emerge "+emerges_failed.length.to_s+" packages ")
+                                        "Failed to emerge "+emerges_failed.length.to_s+" packages: ")
       limit -= failed_txt.split(//u).length
     else
       failed_txt = ""
@@ -57,8 +57,8 @@ class User < TwitterAuth::GenericUser
     if emerges_succ.length > 0
       succ_time = pretty_duration(emerges_succ.collect{|e| e.duration}.sum)
       succ_txt = toLimitedEmergesList(emerges_succ, limit,
-                                      "emerge'd (in "+succ_time+")",
-                                      "emerge'd "+emerges_succ.length.to_s+" packages (in "+succ_time+") ")
+                                      "emerge'd (in "+succ_time+") ",
+                                      "emerge'd "+emerges_succ.length.to_s+" packages (in "+succ_time+"): ")
     else
       succ_txt = ""
     end
@@ -68,8 +68,7 @@ class User < TwitterAuth::GenericUser
       succ_time = pretty_duration(emerges_succ.collect{|e| e.duration}.sum)
       succ_txt = toLimitedEmergesList(emerges_succ, 140 - foot.length,
                                       "emerge'd (in "+succ_time+")",
-                                      emerges_succ.length.to_s +
-                                      "emerge'd "+emerges_succ.length.to_s+" packages (in "+succ_time+") ")
+                                      "emerge'd "+emerges_succ.length.to_s+" packages (in "+succ_time+"): ")
       if failed_txt == ""
         [succ_txt+foot]
       else
