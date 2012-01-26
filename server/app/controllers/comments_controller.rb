@@ -8,25 +8,25 @@ class CommentsController < ApplicationController
     @comment = @emerge.comments.create(params[:comment])
     
     if current_user.tweet_comment
-      head = "@"+@emerge.user.login+" さんの"+@emerge.fullname+"に"
+      head = "Comment added: @"+@emerge.user.login+" "+@emerge.fullname
       body = @comment.content
-      foot = "コメントしました。 "+"http://gentwoo.elisp.net"+emerge_path(@emerge)+" #GenTwoo"
+      foot = "http://gentwoo.elisp.net"+emerge_path(@emerge)+" #GenTwoo"
 
       headlen = head.split(//u).length
       bodylen = body.split(//u).length
       footlen = foot.split(//u).length
       current_user.twitter.post('/statuses/update.json', :status => 
                                 if headlen + bodylen + footlen <= 137
-                                  head + "「" + body + "」と" + foot
+                                  head + "\"" + body + "\"" + foot
                                 elsif headlen + footlen > 140
-                                  "@"+@emerge.user.login+" さんにコメントしました。 "+
+                                  "Comment added: @"+@emerge.user.login+
                                     "http://gentwoo.elisp.net"+emerge_path(@emerge)
                                 elsif headlen + footlen > 136
                                   head + body
                                 else
-                                  head + "「" + 
+                                  head + "\"" + 
                                     body.split(//u)[0,136-headlen-footlen].join('') +
-                                    "…」と" + foot
+                                    "…\"" + foot
                                 end )
     end
 
