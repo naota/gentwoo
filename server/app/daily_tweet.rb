@@ -17,8 +17,8 @@ class DailyTweet < ActiveRecord::Base
                   :order => "cnt DESC",
                   :limit => 1)
 
-  txt = "今日は#{count}回のemergeがありました。" +
-    "一番emergeされたパッケージは#{pkg[0].fullname}(#{pkg[0].cnt}回)で、" +
-    "一番emergeしたのは#{usr[0].login}さん(#{usr[0].cnt}回)です。"
+  txt = "Today we have #{count} emerge" +
+    "Most emerge'd package is#{pkg[0].fullname}(#{pkg[0].cnt} times) and " +
+    "who most emerge'd is#{usr[0].login}(#{usr[0].cnt}times)"
   gentwoo.twitter.post('/statuses/update.json', :status => txt)
 end
