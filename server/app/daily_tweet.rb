@@ -18,7 +18,7 @@ class DailyTweet < ActiveRecord::Base
                   :limit => 1)
 
   txt = "Today we have #{count} emerge" +
-    "Most emerge'd package is#{pkg[0].fullname}(#{pkg[0].cnt} times) and " +
-    "who most emerge'd is#{usr[0].login}(#{usr[0].cnt}times)"
+    "Most emerge'd package is #{pkg[0].fullname}(#{pkg[0].cnt} times) and " +
+    "who most emerge'd is #{usr[0].login}(#{usr[0].cnt}times)"
   gentwoo.twitter.post('/statuses/update.json', :status => txt)
 end
