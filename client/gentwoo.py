@@ -129,7 +129,8 @@ def trySearchLog(package, config):
     return (None, None)
 
 if __name__ == "__main__":
-    config = loadConfig('/etc/gentwoo.conf')
+    eprefix = os.environ.get("EPREFIX", "/")
+    config = loadConfig(eprefix, '/etc/gentwoo.conf')
     if config is None:
       sys.exit(1)
 
