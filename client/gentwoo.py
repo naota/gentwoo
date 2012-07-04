@@ -9,6 +9,7 @@ import re
 import datetime
 import time
 from portage.util import getconfig
+from portage.const import EPREFIX
 
 class Query:
     def __init__(self, config, package, begin, end, logfile):
@@ -129,8 +130,7 @@ def trySearchLog(package, config):
     return (None, None)
 
 if __name__ == "__main__":
-    eprefix = os.environ.get("EPREFIX", "/")
-    config = loadConfig(os.path.join(os.sep, eprefix.lstrip(os.sep),
+    config = loadConfig(os.path.join(os.sep, EPREFIX.lstrip(os.sep),
                                      'etc', 'gentwoo.conf'))
     if config is None:
       sys.exit(1)
