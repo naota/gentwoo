@@ -1,12 +1,12 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.11'
+gem 'rails', '3.0.17'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #gem 'sqlite3'
-gem 'mysql2'
+gem 'mysql2', '< 0.3'
 gem 'oauth'
 gem 'ezcrypto'
 gem 'json'
