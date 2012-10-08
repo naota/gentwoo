@@ -16,6 +16,7 @@ Gentwoo::Application.routes.draw do
   match 'packages/:category/:name' => 'emerges#package'
   match 'poppackage' => 'emerges#poppackage'
 
+  match 'emerges/:id/remove' => 'emerges#remove'
   match 'emerges/:id/:type' => 'emerges#show'
 
   match 'comments(.:format)' => 'comments#index'

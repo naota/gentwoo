@@ -5,6 +5,7 @@
 	   :locals => {:prevpage => @prevpage, :nextpage => @nextpage }) %>
 <%= render(:partial => "emerges",
            :object => @emerges,
-           :locals => {:needuser => false}) %>
+           :locals => {:needuser => false,
+                       :mypage => (current_user == @user)}) %>
 <%= render(:partial => "pagenav",
 	   :locals => {:prevpage => @prevpage, :nextpage => @nextpage }) %>

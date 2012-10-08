@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class EmergesController < ApplicationController
-  before_filter :login_required, :only => [:my]
+  before_filter :login_required, :only => [:my, :destroy, :remove]
 
   def home
     @emerges = Emerge.order("buildtime DESC").limit(10)
@@ -204,6 +204,32 @@ class EmergesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(emerges_url) }
       format.xml  { head :ok }
+    end
+  end
+
+  def remove
+    @emerge = Emerge.unscoped.find(params[:id])
+    @comments = @emerge.comments
+    @correct = current_user == @emerge.user
+    confirmed = params[:confirm]
+    
+    respond_to do |format|
+      if @correct
+        if confirmed
+          @emerge.destroy
+          format.html {
+            redirect_to (:controller => 'emerges',
+                :action => 'useremerges',
+                         :name => current_user.login) }
+        else
+          format.html
+        end
+      else
+        format.html {
+          redirect_to (:controller => 'emerges',
+                       :action => 'show',
+                       :id => @emerge) }
+      end
     end
   end
 end

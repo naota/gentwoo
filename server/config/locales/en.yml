@@ -63,3 +63,7 @@ en:
    tweet_oncomment: Tweet when you post a comment.
    tweet_onemerge: Tweet when you emerge.
    tweet_interval: Emerge tweet interval (minutes)
+   remove: Remove
+   yes: Yes
+   no: No
+   remove_confirm: Really delete this emerge log?

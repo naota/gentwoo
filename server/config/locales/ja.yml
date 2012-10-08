@@ -63,3 +63,7 @@ ja:
    tweet_oncomment: コメントした時につぶやく
    tweet_onemerge: emergeした時につぶやく
    tweet_interval: emergeをつぶやく間隔 (分)
+   remove: 削除
+   yes: はい
+   no: いいえ
+   remove_confirm: 本当にこのemergeログを削除しますか?

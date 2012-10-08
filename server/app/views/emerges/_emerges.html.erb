@@ -1,5 +1,10 @@
 <table>
-<tr><td><%=t :datetime %></td><td></td><td><%=t :duration %></td></tr>
+<tr>
+  <td><%=t :datetime %></td><td></td><td><%=t :duration %></td>
+  <%- if defined? mypage and mypage -%>
+  <td></td>
+  <%- end -%>
+</tr>
 <% emerges.each do |emerge| %>
 <%- if emerge.duration == 0 -%>
 <tr style="background: #FFAAAA">
@@ -29,6 +34,12 @@
     <%- end -%>
   </td>
   <td><%= link_to t(:detail), emerge, :class => "detail" %></td>
+  <%- if defined? mypage and mypage -%>
+  <td>
+    <%= link_to t(:remove), 
+                  :action => "remove", :id => emerge %>
+  </td>
+  <%- end -%>
 </tr>
 <% end %>
 </table>

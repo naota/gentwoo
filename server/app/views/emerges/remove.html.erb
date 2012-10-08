@@ -1,0 +1,78 @@
+<h2><%= t :remove_confirm %></h2>
+
+<%= link_to t(:yes), :id => @emerge, :action => "remove", :confirm => "y" %> / <%= link_to t(:no), @emerge %>
+
+<h2><%= t :user_emerge, :user => @emerge.user.name %></h2>
+
+<p>
+  <%= t :on_time, :time => @emerge.buildtime.to_s(:jp) %>
+  <%- if @emerge.duration == 0 -%>
+  <%= t(:emergefailed_html, :link => @emerge.package.page, :pkg => @emerge.package.fullname)%>
+  <%- else -%>
+  <%= t(:take_duration, :dur => viewDuration(@emerge.duration)) %>
+  <%= t(:emergedone_html, :link => @emerge.package.page, :pkg => @emerge.package.fullname)%>
+  <%- end -%>
+</p>
+<p>
+  <%= link_to (t(:comment_count, :cnt => @emerge.comments.count), url_for(@emerge) + "#comments", :target => "_top") %>
+</p>
+
+<script>
+  $(function() {
+    $( "#tabs" ).tabs({
+      ajaxOptions: {
+        error: function( xhr, status, index, anchor ) {
+          $( anchor.hash ).html(
+            <%=t(:loadfailed_html)%>);
+        }
+      }
+    });
+  });
+</script>
+
+<div id="tabs" style="">
+  <ul>
+    <li><a href="#tabs-1"><%=t(:log)%></a></li>
+    <li><a href="/emerges/ajaxerrorlog/<%= @emerge.id %>"><%=t(:errorlog)%></a></li>
+  </ul>
+  <div id="tabs-1">
+    <textarea style="width: 100%; height: 330px" readonly="true">
+      <%= @emerge.log %>
+    </textarea>
+  </div>
+</div>
+
+<%- if @showcomment -%>
+<a name="comments"></a>
+<div style="margin-top: 30px">
+  <h3><%= t(:comment) %></h3>
+  <div>
+    <% @comments.each do |comment| %>
+    <a name="comment_<%= comment.id %>"></a>
+    <div style="border-style: outset; border: 1">
+      <img src="<%= comment.user.profile_image_url %>" style="vertical-align: middle" />
+      <%= comment.user.name %> <%= comment.created_at.to_s(:jp) %><br/>
+      <div>
+	<%= simple_format auto_link(comment.content) %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <div>
+    <h4><%= t(:write_comment) %></h4>
+    <%- if current_user -%>
+    <%= form_for([@emerge, @emerge.comments.build]) do |f| %>
+    <div class="field">
+      <%= f.label :content %><br />
+      <%= f.text_area :content %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+    <% end %>
+    <%- else -%>
+    <%=t(:login_towrite_html)%>
+    <%- end -%>
+  </div>
+</div>
+<%- end -%>
