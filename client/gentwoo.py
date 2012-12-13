@@ -74,9 +74,9 @@ def loadConfig(configfile):
     config = getconfig(configfile)
 
     for key in config:
-      if config[key].lower == 'true':
+      if config[key].lower() == 'true':
         config[key] = True
-      elif config[key].lower == 'false':
+      elif config[key].lower() == 'false':
         config[key] = False
       elif config[key].isdigit():
         config[key] = int(config[key])
