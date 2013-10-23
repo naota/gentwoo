@@ -10,7 +10,7 @@ en:
    duration: merge time
    useremerged_html: "%{user} "
    emergefailed_html: "failed to emerge <a href=\"%{link}\">%{pkg}</a>"
-   emergedone_html: "finished to emerge <a href=\"%{link}\">%{pkg}</a>"
+   emergedone_html: "finished emerging <a href=\"%{link}\">%{pkg}</a>"
    failed: Failed
    detail: Detail
    tonewpage: recent
