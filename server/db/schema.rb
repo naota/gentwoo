@@ -10,7 +10,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111019054403) do
+ActiveRecord::Schema.define(:version => 20111207220000) do
+
+  create_table "cache_pop_packages", :force => true do |t|
+    t.integer  "cnt"
+    t.integer  "package_id"
+    t.datetime "created_at"
+  end
+
+  add_index "cache_pop_packages", ["cnt"], :name => "index_cache_pop_packages_on_cnt"
+
+  create_table "cache_pop_users", :force => true do |t|
+    t.integer  "cnt"
+    t.integer  "user_id"
+    t.datetime "created_at"
+  end
+
+  add_index "cache_pop_users", ["cnt"], :name => "index_cache_pop_users_on_cnt"
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -33,7 +49,6 @@ ActiveRecord::Schema.define(:version => 20111019054403) do
     t.boolean  "tobe_tweet", :default => false
   end
 
-  add_index "emerges", ["buildtime", "package_id", "user_id"], :name => "index_emerges_on_buildtime_and_package_id_and_user_id"
   add_index "emerges", ["buildtime"], :name => "index_emerges_on_buildtime"
   add_index "emerges", ["package_id"], :name => "index_emerges_on_package_id"
   add_index "emerges", ["user_id"], :name => "index_emerges_on_user_id"
