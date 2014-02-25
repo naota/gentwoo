@@ -218,7 +218,7 @@ class EmergesController < ApplicationController
         if confirmed
           @emerge.destroy
           format.html {
-            redirect_to (:controller => 'emerges',
+            redirect_to(:controller => 'emerges',
                 :action => 'useremerges',
                          :name => current_user.login) }
         else
@@ -226,7 +226,7 @@ class EmergesController < ApplicationController
         end
       else
         format.html {
-          redirect_to (:controller => 'emerges',
+          redirect_to(:controller => 'emerges',
                        :action => 'show',
                        :id => @emerge) }
       end
