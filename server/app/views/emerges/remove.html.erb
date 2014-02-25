@@ -50,7 +50,7 @@
     <% @comments.each do |comment| %>
     <a name="comment_<%= comment.id %>"></a>
     <div style="border-style: outset; border: 1">
-      <img src="<%= comment.user.profile_image_url %>" style="vertical-align: middle" />
+      <img src="<%= comment.user.image %>" style="vertical-align: middle" />
       <%= comment.user.name %> <%= comment.created_at.to_s(:jp) %><br/>
       <div>
 	<%= simple_format auto_link(comment.content) %>

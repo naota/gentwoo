@@ -27,7 +27,7 @@
       <tr>
 	<td><%= p.cnt %></td>
 	<td>
-	  <img src="<%= p.profile_image_url.to_s.force_encoding("UTF-8") %>" style="vertical-align: middle" />
+	  <img src="<%= p.image %>" style="vertical-align: middle" />
 	  <%= link_to p.name.to_s.force_encoding("UTF-8"), p %>
 	</td>
       </tr>
@@ -41,7 +41,7 @@
       <% @recentcomments.each do |comment| %>
       <tr>
 	<td>
-	  <img src="<%= comment.user.profile_image_url.to_s.force_encoding("UTF-8") %>" style="vertical-align: middle" />
+	  <img src="<%= comment.user.image %>" style="vertical-align: middle" />
 	</td>
 	<td>
 	  <%= comment.created_at.to_s(:jp) %>

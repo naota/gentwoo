@@ -102,4 +102,12 @@ class User < TwitterAuth::GenericUser
       end
     end
   end
+
+  def image
+    if self.profile_image_url.match(/default_profile_images/)
+      self.profile_image_url.to_s.force_encoding("UTF-8")
+    else
+      self.profile_image_url.sub('://a0','://pbs').sub('normal', 'bigger').to_s.force_encoding("UTF-8")
+    end
+  end
 end
