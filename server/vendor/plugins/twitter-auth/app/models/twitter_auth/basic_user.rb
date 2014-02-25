@@ -13,7 +13,7 @@ module TwitterAuth
     module ClassMethods
       def verify_credentials(login, password)
         response = TwitterAuth.net.start { |http|
-          request = Net::HTTP::Get.new('/account/verify_credentials.json')
+          request = Net::HTTP::Get.new('/1.1/account/verify_credentials.json')
           request.basic_auth login, password
           http.request(request)
         }

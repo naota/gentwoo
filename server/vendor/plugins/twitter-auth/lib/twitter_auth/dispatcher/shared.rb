@@ -2,7 +2,7 @@ module TwitterAuth
   module Dispatcher
     module Shared
       def post!(status)
-        self.post('/statuses/update.json', :status => status)
+        self.post('/1.1/statuses/update.json', :status => status)
       end
 
       def append_extension_to(path)

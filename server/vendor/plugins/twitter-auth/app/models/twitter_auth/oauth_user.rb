@@ -15,7 +15,7 @@ module TwitterAuth
         
         token = OAuth::AccessToken.new(TwitterAuth.consumer, token, secret) unless token.is_a?(OAuth::AccessToken)
         
-        response = token.get(TwitterAuth.path_prefix + '/account/verify_credentials.json')
+        response = token.get(TwitterAuth.path_prefix + '/1.1/account/verify_credentials.json')
         user_info = handle_response(response)
         
         if user = User.find_by_twitter_id(user_info['id'].to_s)

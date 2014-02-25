@@ -7,7 +7,7 @@ module TwitterAuth
   end
 
   def self.base_url
-    config['base_url'] || 'https://twitter.com'    
+    config['base_url'] || 'https://api.twitter.com'    
   end
 
   def self.path_prefix
