@@ -36,7 +36,7 @@ class Emerge < ActiveRecord::Base
     "data/" + hash[0,2] + "/" + hash[2,4] + "/" + hash[4..-1]
   end
 
-  def savehashfile(contents)
+  def save_hash_file(contents)
     hash = Digest::SHA256.hexdigest(contents)
     file = hash_file(hash)
     dir = File.dirname(file)
