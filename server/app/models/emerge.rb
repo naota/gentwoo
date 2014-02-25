@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+require "xz"
+
 class Emerge < ActiveRecord::Base
   belongs_to :package
   belongs_to :user
@@ -27,6 +29,30 @@ class Emerge < ActiveRecord::Base
       mins[0].to_s + t(:minute) + mins[1].to_s + t(:second)
     else
       mins[1].to_s + t(:second)
+    end
+  end
+
+  def hash_file(hash)
+    "data/" + hash[0,2] + "/" + hash[2,4] + "/" + hash[4..-1]
+  end
+
+  def savehashfile(contents)
+    hash = Digest::SHA256.hexdigest(contents)
+    file = hash_file(hash)
+    dir = File.dirname(file)
+    unless File.exists?(file)
+      FileUtils.mkdir_p(dir)
+      File.binwrite(file, XZ.compress(contents))
+    end
+    hash
+  end
+
+  def hashed_log(log, hash)
+    if hash
+      file = hash_file(hash)
+      XZ.decompress(File.open(file).read)
+    else
+      log.force_encoding("UTF-8")
     end
   end
 end

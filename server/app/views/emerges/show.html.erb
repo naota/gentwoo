@@ -33,7 +33,7 @@
   </ul>
   <div id="tabs-1">
     <textarea style="width: 100%; height: 330px" readonly="true">
-      <%= @emerge.log.force_encoding("UTF-8") %>
+      <%= @emerge.hashed_log(@emerge.log,@emerge.log_hash) %>
     </textarea>
   </div>
 </div>

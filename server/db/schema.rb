@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -46,7 +47,9 @@ ActiveRecord::Schema.define(:version => 20111207220000) do
     t.text     "errorlog"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "tobe_tweet", :default => false
+    t.boolean  "tobe_tweet",    :default => false
+    t.string   "log_hash"
+    t.string   "errorlog_hash"
   end
 
   add_index "emerges", ["buildtime"], :name => "index_emerges_on_buildtime"

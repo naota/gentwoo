@@ -163,6 +163,13 @@ class EmergesController < ApplicationController
       end
     end
 
+    if @emerge
+      @emerge.log_hash = @emerge.save_hash_file(@emerge.log)
+      @emerge.log = nil
+      @emerge.errorlog_hash = @emerge.save_hash_file(@emerge.errorlog)
+      @emerge.errorlog = nil
+    end
+
     respond_to do |format|
       if @emerge and @emerge.save
         if @user.tweet_emerged
