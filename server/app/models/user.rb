@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 class User < TwitterAuth::GenericUser
+  def self.table_name; 'users' end
   has_many :emerges
   has_one :cache_pop_user
 
@@ -85,7 +86,7 @@ class User < TwitterAuth::GenericUser
       self.delayEmergeTweetTxts.each do |txt|
         if tweet
           begin
-            self.twitter.post('/statuses/update.json', :status => txt)
+            self.twitter.post('/1.1/statuses/update.json', :status => txt)
             self.emerges.update_all ["tobe_tweet = ?", false], ["tobe_tweet = ?", true]
             self.last_tweet = Time.now
             self.save

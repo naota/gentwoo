@@ -1,4 +1,4 @@
-<h2><%= t(:user_mypage, :user => @user.name) %></h2>
+<h2><%= t(:user_mypage, :user => @user.name.force_encoding("UTF-8")) %></h2>
 
 <%= link_to t(:view_myemerge), url_for(:my_emerges) %>
 

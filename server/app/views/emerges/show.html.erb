@@ -1,7 +1,7 @@
-<h2><%= t :user_emerge, :user => @emerge.user.name %></h2>
+<h2><%= t :user_emerge, :user => @emerge.user.name.to_s.force_encoding("UTF-8") %></h2>
 
 <p>
-  <%= t :on_time, :time => @emerge.buildtime.to_s(:jp) %>
+  <%= t :on_time, :time => @emerge.buildtime.to_s(:jp).force_encoding("UTF-8") %>
   <%- if @emerge.duration == 0 -%>
   <%= t(:emergefailed_html, :link => @emerge.package.page, :pkg => @emerge.package.fullname)%>
   <%- else -%>
@@ -33,7 +33,7 @@
   </ul>
   <div id="tabs-1">
     <textarea style="width: 100%; height: 330px" readonly="true">
-      <%= @emerge.log %>
+      <%= @emerge.log.force_encoding("UTF-8") %>
     </textarea>
   </div>
 </div>
@@ -46,10 +46,10 @@
     <% @comments.each do |comment| %>
     <a name="comment_<%= comment.id %>"></a>
     <div style="border-style: outset; border: 1">
-      <img src="<%= comment.user.profile_image_url %>" style="vertical-align: middle" />
-      <%= comment.user.name %> <%= comment.created_at.to_s(:jp) %><br/>
+      <img src="<%= comment.user.profile_image_url.to_s.force_encoding("UTF-8") %>" style="vertical-align: middle" />
+      <%= comment.user.name.force_encoding("UTF-8") %> <%= comment.created_at.to_s(:jp).force_encoding("UTF-8") %><br/>
       <div>
-	<%= simple_format auto_link(comment.content) %>
+	<%= simple_format auto_link(comment.content.force_encoding("UTF-8")) %>
       </div>
     </div>
     <% end %>
